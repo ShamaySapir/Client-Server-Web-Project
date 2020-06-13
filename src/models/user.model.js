@@ -30,8 +30,14 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
     },
     lastSearch: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: true,
+      get: function () {
+        return JSON.parse(this.getDataValue("lastSearch"));
+      },
+      set: function (val) {
+        return this.setDataValue("lastSearch", JSON.stringify(val));
+      },
     },
   });
 

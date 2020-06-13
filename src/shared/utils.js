@@ -1,5 +1,6 @@
 const axios = require("axios");
 const db = require("../db/dbUtils");
+
 const crypto = require("crypto-js");
 
 const apiDomain = "https://api.spoonacular.com";
@@ -183,6 +184,7 @@ const isViewedByUser = async (userId, recipeId) => {
 const getNow = () => {
   return `2020-06-06T19:16:29.0940000+00:00`;
 };
+
 module.exports = {
   getRecipeInfoByID: getRecipeInfoByID,
   getRecipeInstructionsByID: getRecipeInstructionsByID,
