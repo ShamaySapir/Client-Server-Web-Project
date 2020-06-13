@@ -20,7 +20,7 @@ router.post("/viewed", userHandlers.viewed);
 // Add the user favorite recipe to the db
 router.post("/favorite", userHandlers.addFavorite);
 
-// Delete the user unfavorite recipe from the db
+// Delete the user unFavorite recipe from the db
 router.post("/unFavorite", userHandlers.deleteFavorite);
 
 // The user personal recipes page
