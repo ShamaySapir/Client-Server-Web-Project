@@ -12,7 +12,6 @@ const userViewedRecipeHandler = require("./userViewRecipeHandler");
 const authRegisterHandler = require("./authRegister");
 const authLoginHandler = require("./authLogin");
 const getRecipeFromDBHandler = require("./dbGetRecipe");
-const getUserHandler = require("./dbGetUser");
 
 module.exports = {
   userHandlers: {
@@ -36,6 +35,5 @@ module.exports = {
   },
   dbHandlers: {
     getRecipe: getRecipeFromDBHandler,
-    getUser: getUserHandler,
   },
 };

@@ -8,7 +8,31 @@ const userGetFavoriteRecipesHandler = async (req, res, next) => {
       where: { userId: id },
       include: [{ model: db.recipes, as: "recipe" }],
     });
-    const allUserRecipesId = allUserRecipes.map(({ recipe }) => recipe);
+    const allUserRecipesId = allUserRecipes.map(
+      ({
+        recipe: {
+          id,
+          image,
+          title,
+          readyInMinutes,
+          likes,
+          vegan,
+          glutenFree,
+          viewed,
+          favorite,
+        },
+      }) => ({
+        id,
+        image,
+        title,
+        readyInMinutes,
+        likes,
+        vegan,
+        glutenFree,
+        viewed,
+        favorite,
+      })
+    );
 
     const favorites = await db.viewed.findAll({
       where: { userId: id, favorite: true },

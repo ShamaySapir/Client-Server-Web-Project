@@ -8,7 +8,7 @@ const mainRouter = express.Router();
 
 mainRouter.use("/recipes", recipesRouter);
 mainRouter.use("/auth", authRouter);
-mainRouter.use("/user/:userId", userRouter); // assure cookie session for user first
+mainRouter.use("/user/:userId", userRouter); // TODO: assure cookie session for user first
 mainRouter.use("/db", dbRouter);
 
 module.exports = mainRouter;
