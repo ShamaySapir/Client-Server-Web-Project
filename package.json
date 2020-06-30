@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "client": "vue-cli-service serve",
     "start": "nodemon ./index.js",
-    "client": "nodemon ./main.js",
     "init:db": "node ./src/shared/initial/setInitialDB.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
