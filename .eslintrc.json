@@ -4,13 +4,15 @@
     "commonjs": true,
     "es6": true
   },
-  "extends": ["google", "prettier"],
+  "extends": ["google", "prettier","plugin:vue/vue3-recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "parser": "vue-eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 11
+    "ecmaVersion": 11,
+    "parser": "babel-eslint"
   },
   "rules": {
     "new-cap": "off"
