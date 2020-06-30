@@ -33,7 +33,7 @@ export default new Router({
       name: 'LoginPage',
       component: LoginPage
     },
-    {//set path for new team page
+    {// set path for new team page
       path: '/WelcomePage',
       name: 'WelcomePage',
       component: WelcomePage

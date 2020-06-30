@@ -4,7 +4,7 @@
     "commonjs": true,
     "es6": true
   },
-  "extends": ["google", "prettier","plugin:vue/vue3-recommended"],
+  "extends": ["google", "prettier", "plugin:vue/vue3-recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"

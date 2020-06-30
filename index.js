@@ -6,7 +6,7 @@ const routes = require("./src/routes");
 const middlewares = require("./src/middleware");
 const app = express();
 const dbSequelize = require("./src/db/dbSequelize");
-const testTheUtils = require("./src/shared/utils");
+// const testTheUtils = require("./src/shared/utils");
 app.use(logger("dev")); // logger
 
 app.use(express.json()); // parse application/json

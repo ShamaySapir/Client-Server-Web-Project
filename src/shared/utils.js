@@ -65,24 +65,24 @@ const registerInDB = async (registerRequest) => {
   const passwordSHA = crypto.SHA256(registerRequest.body.password);
   const {
     username,
-    first_name,
-    last_name,
+    firstName,
+    lastName,
     country,
     password = passwordSHA,
-    confirmation_password,
+    confirmationPassword,
     email,
     image,
   } = registerRequest.body;
   if (await isUsernameTaken(username)) {
     return false;
   }
-  if (password != confirmation_password) {
+  if (password != confirmationPassword) {
     return false;
   }
   const query = `INSERT INTO [dbo].[users]
   ([USERNAME], [FIRSTNAME], [LASTNAME], [COUNTRY], [PASSWORD], [EMAIL] ,[IMAGE])
   VALUES
-  ('${username}', '${first_name}', '${last_name}', '${country}', '${password}', '${email}', '${image}')`;
+  ('${username}', '${firstName}', '${lastName}', '${country}', '${password}', '${email}', '${image}')`;
   await db.execQuery(query);
   return true;
 };
