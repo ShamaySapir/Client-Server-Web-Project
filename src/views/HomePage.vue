@@ -1,5 +1,5 @@
 <template>
-  <div>Welcome to home page of logined users</div>
+  <div>Welcome to home page of loged in users</div>
 </template>
 
 <script>
@@ -9,8 +9,8 @@ export default {
   name: "HomePage",
   mounted() {
     if (this.$root.userToken == "" || this.$root.userToken == null) {
-        //not logged in so send him to welcome page
-        this.$router.push("/WelcomePage");
+        // not logged in so send him to welcome page
+        this.$router.push("/welcome");
       }
   },
 };

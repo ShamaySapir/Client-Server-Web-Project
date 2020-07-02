@@ -1,5 +1,7 @@
+/* eslint-disable prefer-rest-params */
+/* eslint-disable prefer-rest-params */
 <template>
-  <v-app id="reciPyjamot">
+  <v-app id="morbis">
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <v-list dense>
         <template v-for="item in items">
@@ -63,13 +65,13 @@
       <v-btn color="black" class="white--text" style="margin:10px" to="/home">Home</v-btn>
       <v-btn color="black" class="white--text" style="margin:10px" to="/about">About</v-btn>
       <v-spacer/>
-      <v-btn color="black" id="loginButton" class="white--text" style="margin:10px;" to="/LoginPage">Login</v-btn>
-      <v-btn color="black" id="registerButton" class="white--text" style="margin:10px" to="/RegisterPage">Register</v-btn>
+      <v-btn color="black" id="loginButton" class="white--text" style="margin:10px;" to="/login">Login</v-btn>
+      <v-btn color="black" id="registerButton" class="white--text" style="margin:10px" to="/register">Register</v-btn>
       <!--
       <v-btn color="black" id="logoutButton" class="white--text" style="margin:10px;" @click="Logout">Logout</v-btn>
       <v-btn color="black" id="all_user_logoutButton" class="white--text" style="margin:10px;" @click="ForceLogout">All-User Logout</v-btn>
       -->
-      <v-btn icon to="/Settings">
+      <v-btn icon to="/settings">
         <v-badge
         :content="notificationCount"
         :value="notificationCount"
@@ -106,26 +108,27 @@
 </template>
 
 <script>
-var userMenu = {
+const userMenu = {
   icon: "mdi-chevron-up",
   "icon-alt": "mdi-chevron-down",
   text: "Recipes",
   model: false,
   hidden: false,
   children: [
-    { text: "My Recipes", icon: "mdi-food-variant", to: "/home" },
-    { text: "Favorites", icon: "mdi-heart", to: "/home" },
-    { text: "Family Recipes", icon: "mdi-account-group", to: "/home" },
+    { text: "My Recipes", icon: "mdi-food-variant", to: "/myRecipes" },
+    { text: "Favorites", icon: "mdi-heart", to: "/favorites" },
+    { text: "Family Recipes", icon: "mdi-account-group", to: "/family" },
   ]
 };
 
-var menus = [];
+const menus = [];
 menus["USER"] = userMenu;
-var menu = [
-  { icon: "mdi-home", text: "\t Home", to: "/HomePage" },
+const menu = [
+  { icon: "mdi-home", text: "\t Home", to: "/home" },
   { text: "Search Recipes", icon: "mdi-magnify", to: "/search" },
+  { text: "New Recipe", icon: "mdi-magnify", to: "/create" },
   userMenu,
-  { icon: "mdi-cog", text: "\t Settings", to: "/Settings" }
+  { icon: "mdi-cog", text: "Settings", to: "/settings" }
 ];
 export default {
 
@@ -152,10 +155,11 @@ export default {
   }),
   methods: {
     remove: function(arr) {
-      var what,
-        a = arguments,
-        L = a.length,
-        ax;
+      let what;
+        // eslint-disable-next-line prefer-rest-params
+        const a = arguments;
+        let L = a.length;
+        let ax;
       while (L > 1 && arr.length) {
         what = a[--L];
         while ((ax = arr.indexOf(what)) !== -1) {
@@ -172,18 +176,6 @@ export default {
       document.getElementById('registerButton').style.display = 'none';
       document.getElementById('logoutButton').style.display = 'block';
       console.log(roles);
-      //hide every menu
-      menus["PLAYER"].hidden = true;
-      menus["COACH"].hidden = true;
-      menus["REFEREE"].hidden = true;
-      menus["TEAM_MANAGER"].hidden = true;
-      menus["TEAM_OWNER"].hidden = true;
-      menus["ASSOCIATION_REP"].hidden = true;
-      menus["ADMIN"].hidden = true;
-      //show only the relevent menus
-      roles.forEach(role => {
-        menus[role].hidden = false;
-      });
     },
     Logout() {
       fetch(this.$root.baseURL + "/api/logout/" + this.$root.userToken, {
@@ -202,7 +194,7 @@ export default {
             document.getElementById('registerButton').style.display = 'block';
             document.getElementById('logoutButton').style.display = 'none';
             window.location.href = location.origin
-            //this.$router.push("/WelcomePage");
+            // this.$router.push("/welcome");
           } else {
             alert(
               "There was an error while logging out: " +
@@ -230,8 +222,8 @@ export default {
             document.getElementById('loginButton').style.display = 'block';
             document.getElementById('registerButton').style.display = 'block';
             document.getElementById('logoutButton').style.display = 'none';
-            window.location.href = 'WelcomePage'
-            //this.$router.push("/WelcomePage");
+            window.location.href = 'welcome'
+            // this.$router.push("/welcome");
           } else {
             alert(
               "There was an error while all-user logging out: " +
