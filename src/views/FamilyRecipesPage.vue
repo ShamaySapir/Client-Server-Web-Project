@@ -8,15 +8,28 @@
 <script>
 // @ is an alias to /src
 import PreviewList from "@/components/PreviewList.vue";
+import axios from "axios";
 export default {
   name: "FamilyRecipesPage",
   async mounted() {
     try {
-      const response = await fetch("http://localhost:3000/user/1/family");
+      const response = await axios.get("api/user/1/family");
       console.log(response);
-    } catch (e) {
-      console.log(e);
+      /* const recipes = response.data.recipes.map((r) => {
+        return {
+          id: r.id,
+          title: r.title,
+          readyInMinutes: r.readyInMinutes,
+          image: r.image,
+          aggregateLikes: r.aggregateLikes
+        };
+      });*/
+
+      // insert to this.recipes
+    } catch (error) {
+      console.log(error);
     }
+
   },
   data: function () {
     return {
