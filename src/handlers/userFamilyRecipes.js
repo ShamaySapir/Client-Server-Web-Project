@@ -1,7 +1,7 @@
 const userFamilyRecipesHandler = async (req, res, next) => {
   try {
     const db = req.app.db;
-    const id = req.params.userId;
+    const id = req.session.user_id;
     // get from db
     const family = await db.usersRecipes.findAll({
       where: { userId: id, relation: "family" },

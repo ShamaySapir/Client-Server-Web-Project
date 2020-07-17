@@ -13,6 +13,7 @@ export default {
   name: "FamilyRecipesPage",
   async mounted() {
     try {
+      const t = document.cookie
       const response = await axios.get("api/user/1/family");
       console.log(response);
       /* const recipes = response.data.recipes.map((r) => {

@@ -5,7 +5,6 @@ const authLoginHandler = async (req, res, next) => {
   const password = req.body.password
   const userId = await login(username,password);
   if (userId) {
-    next();
     req.session.user_id = userId;
     res.json({ 
       username: username,

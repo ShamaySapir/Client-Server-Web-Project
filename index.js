@@ -11,9 +11,10 @@ app.use(logger("dev")); // logger
 
 app.use(express.json()); // parse application/json
 
+middlewares(app);
+
 app.use(routes);
 dbSequelize(app);
-middlewares(app);
 
 app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, "public"))); // To serve static files such as images, CSS files, and JavaScript files
@@ -21,7 +22,7 @@ app.use(express.static(path.join(__dirname, "public"))); // To serve static file
 const port = process.env.PORT || "3000";
 
 const server = app.listen(port, () => {
-  // console.log(`Server listen on port ${port}`);
+  console.log(`Server listen on port ${port}`);
 });
 
 process.on("SIGINT", () => {
