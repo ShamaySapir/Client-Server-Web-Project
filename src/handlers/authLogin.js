@@ -1,11 +1,16 @@
 const { login } = require("../shared");
 
 const authLoginHandler = async (req, res, next) => {
-  const userId = await login(req.body.username, req.body.password);
+  const username = req.body.username;
+  const password = req.body.password
+  const userId = await login(username,password);
   if (userId) {
     next();
     req.session.user_id = userId;
-    res.json({ result: "success" });
+    res.json({ 
+      username: username,
+      userId: userId,
+      });
     return;
   }
   next(new Error("error authenticating username and password"));

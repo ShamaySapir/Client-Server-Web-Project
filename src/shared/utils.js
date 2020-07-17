@@ -153,7 +153,7 @@ const authenticate = async (username, password) => {
     return null;
   }
   const [{ password: dbPassword, id: userId }] = userDB;
-  const hashPassword = await crypto.SHA256(password);
+  const hashPassword = password;
   return (hashPassword == dbPassword && userId) || null;
 };
 const isUsernameTaken = async (username) => {

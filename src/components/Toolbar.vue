@@ -7,7 +7,7 @@
       src="https://www.worcester.gov.uk/images/easyblog_shared/2019/b2ap3_amp_Football---carousel.jpg">
 
       <v-toolbar-icon><v-img :src="require('../assets/morbis-logo.svg')"  contain height="50px" width="50px"></v-img></v-toolbar-icon>
-      <v-toolbar-title>Morbis</v-toolbar-title>
+      <v-toolbar-title>ReciPyjamot</v-toolbar-title>
       <v-spacer></v-spacer>
       <div>
           <v-btn to="/">Home</v-btn>

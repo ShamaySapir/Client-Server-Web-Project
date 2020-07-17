@@ -39,6 +39,9 @@
 <script>
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
+import crypto from "crypto-js";
+import axios from "axios";
+
 export default {
   name: "LoginForm",
   data: () => ({
@@ -64,33 +67,24 @@ export default {
       });
       this.connected = true;
     },
-    login() {
+    async login() {
       if (!this.valid) {
         alert("There's a problem");
         return;
       }
-      fetch(this.$root.baseURL + "/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+      const res = await axios.post("api/auth/Login", {
           username: this.username,
-          password: this.password
-        })
+          password: crypto.SHA256(this.password).toString()
       })
         .then(response => {
-          if (response.ok) {
-            response.json().then(json => {
-              this.$root.userToken = json.token;
-              this.$root.roles = json.roles;
-              this.$root.memberID = json.memberID;
-              this.changeMenu(this.$root.roles);
+          if (response.status==200) {
+              // this.$root.userToken = json.token;
+              // this.$root.roles = json.roles;
+              // this.$root.memberID = json.memberID;
+              // this.changeMenu(this.$root.roles);
               alert("Logged In successfully !");
-              console.log(this.$root.userToken);
-              this.$router.push("/HomePage");
-              this.connectToServer();
-            });
+              // console.log(this.$root.userToken);
+              this.$router.push("/home");
           } else {
             if (response.status == 401) {
               alert("The combination of username and password doesn't exist");
@@ -101,7 +95,7 @@ export default {
             }
           }
         })
-        .catch(err => console.error(err));
+        .catch(err => {console.error(err)});
     },
     subscribeToFollowingGames(tempClient) {
       fetch(

@@ -1,5 +1,3 @@
-/* eslint-disable prefer-rest-params */
-/* eslint-disable prefer-rest-params */
 <template>
   <v-app id="morbis">
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
@@ -79,7 +77,7 @@
         overlap
         
       >
-        <v-icon>mdi-apps</v-icon>
+        <v-icon>apps</v-icon>
       </v-badge>
       </v-btn>
       <!--
@@ -139,7 +137,8 @@ export default {
     this.$root.$on("SetNotification", (numberOfNotifications) => {
       this.notificationCount = numberOfNotifications;
     })
-    this.$root.baseURL = location.origin;
+    // this.$root.baseURL = location.origin;
+    this.$root.baseURL = "http://localhost:3000";
     document.getElementById('logoutButton').style.display = 'none';
   },
   props: {
@@ -147,6 +146,7 @@ export default {
   },
 
   data: () => ({
+
     drawer: null,
     registerButton: null,
     logoutButton: null,
@@ -178,7 +178,7 @@ export default {
       console.log(roles);
     },
     Logout() {
-      fetch(this.$root.baseURL + "/api/logout/" + this.$root.userToken, {
+      fetch(this.$root.baseURL + "/logout/" + this.$root.userToken, {
         method: "GET",
         headers: {
           accept: "*/*"
