@@ -21,12 +21,10 @@ const sapir = require("./userSapir");
 const haim = require("./userHaim");
 
 const userRecipe = (dbRecords, username, title) => {
-  const userSapir = dbRecords.users.find((user) => user.username === username);
-  const recipePancake = dbRecords.recipes.find(
-    (recipe) => recipe.title === title
-  );
-  const relation = recipePancake.family === null ? "personal" : "family";
-  return { userId: userSapir.id, recipeId: recipePancake.id, relation };
+  const user = dbRecords.users.find((user) => user.username === username);
+  const recipe = dbRecords.recipes.find((recipe) => recipe.title === title);
+  const relation = recipe.family === null ? "personal" : "family";
+  return { userId: user.id, recipeId: recipe.id, relation };
 };
 
 module.exports = {

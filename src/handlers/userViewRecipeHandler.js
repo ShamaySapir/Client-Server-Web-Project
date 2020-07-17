@@ -8,10 +8,23 @@ const userViewedRecipeHandler = async (req, res, next) => {
       where: { userId: id, recipeId: recipeId },
       raw: true,
     });
-    // if not - create new entry in viewed table
-    if (!recipe) {
-      const viewedRecipe = { userId: id, recipeId: recipeId, favorite: false };
-      await db.viewed.create(viewedRecipe);
+    if (recipe) {
+      db.viewed.update(
+        {
+          seen: true,
+        },
+        {
+          where: { userId: id, recipeId: recipeId },
+        }
+      );
+    } else {
+      const addRecipe = {
+        userId: id,
+        recipeId: recipeId,
+        seen: true,
+        favorite: false,
+      };
+      await db.viewed.create(addRecipe);
     }
 
     res.status(200).send();

@@ -8,7 +8,6 @@ const userDeleteFavoriteRecipesHandler = async (req, res, next) => {
       where: { userId: id, recipeId: recipeId },
       raw: true,
     });
-    // if true - update the entry in viewed table
     if (recipe) {
       db.viewed.update(
         {
@@ -19,7 +18,13 @@ const userDeleteFavoriteRecipesHandler = async (req, res, next) => {
         }
       );
     } else {
-      throw new Error();
+      const addRecipe = {
+        userId: id,
+        recipeId: recipeId,
+        seen: false,
+        favorite: false,
+      };
+      await db.viewed.create(addRecipe);
     }
     // return value
     res.status(200).send();

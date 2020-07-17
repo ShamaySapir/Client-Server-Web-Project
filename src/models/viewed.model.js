@@ -1,7 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const Viewed = sequelize.define("viewed", {
     userId: {
-      // spoonacular recipe id only
       type: Sequelize.INTEGER,
       primaryKey: true,
     },
@@ -9,6 +8,10 @@ module.exports = (sequelize, Sequelize) => {
       // spoonacular recipe id only
       type: Sequelize.INTEGER,
       primaryKey: true,
+    },
+    seen: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
     },
     favorite: {
       type: Sequelize.BOOLEAN,

@@ -20,7 +20,13 @@ const userAddFavoriteRecipesHandler = async (req, res, next) => {
         }
       );
     } else {
-      throw new Error();
+      const addRecipe = {
+        userId: id,
+        recipeId: recipeId,
+        seen: false,
+        favorite: true,
+      };
+      await db.viewed.create(addRecipe);
     }
     // return value
     res.status(200).send();

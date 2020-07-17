@@ -39,7 +39,7 @@ const getRecipePreviewByData = (infoAPIData) => {
     image: infoAPIData.image,
     title: infoAPIData.title,
     readyInMinutes: infoAPIData.readyInMinutes,
-    likes: infoAPIData.likes,
+    likes: infoAPIData.aggregateLikes,
     vegan: infoAPIData.vegan,
     glutenFree: infoAPIData.glutenFree,
     viewed: infoAPIData.viewed, // TODO get from user
