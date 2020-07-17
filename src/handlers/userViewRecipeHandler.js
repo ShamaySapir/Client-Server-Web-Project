@@ -1,7 +1,7 @@
 const userViewedRecipeHandler = async (req, res, next) => {
   try {
     const db = req.app.db;
-    const id = req.params.userId;
+    const id = req.session.user_id;
     // check if recipeId already exists in viewed table
     const recipeId = req.body.recipeId;
     const recipe = await db.viewed.findOne({

@@ -3,7 +3,6 @@
     <div align="center" dark class="primary mb-10 py-3 white--text">
       <h1>Login</h1>
     </div>
-
     <div align="center">
       <v-form ref="form" v-model="valid">
         <v-text-field
@@ -49,24 +48,9 @@ export default {
     username: "",
     password: "",
     passwordVisable: false,
+    recipes:[]
   }),
   methods: {
-    connectToServer() {
-      console.log("connecting to server");
-      const url = this.$root.baseURL + "";
-      let socket = new SockJS(url + "/api/websocket");
-      this.stompClient = Stomp.over(socket);
-      var tempClient = this.stompClient;
-      this.$root.client = this.stompClient;
-      let noteObj = this.$root.notificationCount;
-      let self = this;
-      this.$root.client.connect({}, function(frame) {
-        console.log("connected to: " + frame);
-        self.subscribeToFollowingGames(tempClient);
-        self.updateNumberOfNotifications();
-      });
-      this.connected = true;
-    },
     async login() {
       if (!this.valid) {
         alert("There's a problem");
@@ -97,74 +81,6 @@ export default {
         })
         .catch(err => {console.error(err)});
     },
-    subscribeToFollowingGames(tempClient) {
-      fetch(
-        this.$root.baseURL + "/api/fan/" +
-          this.$root.memberID +
-          "/gamesFollowing",
-        {
-          headers: {
-            'authorization': this.$root.userToken
-          },
-          method: "GET"
-        }
-      )
-        .then(response => {
-          if (response.ok) {
-            response.json().then(json => {
-              for (let i = 0; i < json.length; i++) {
-                tempClient.subscribe(
-                  "/api/events/game-events/" + json[i].id,
-                  response => {
-                    let data = JSON.parse(response.body);
-                    console.log("new nofitication:" + data.type);
-                    alert(
-                      "There was " +
-                        data.type +
-                        ": " +
-                        data.description +
-                        " in a followed game"
-                    );
-                  }
-                );
-              }
-            });
-          } else {
-            if(response.status != 404) {
-              alert("There was a problem subscribing a game");
-            }
-          }
-        })
-        .catch(err => console.error(err));
-    },
-    updateNumberOfNotifications() {
-      fetch(
-        this.$root.baseURL + "/api/fan/" +
-          this.$root.memberID +
-          "/events-count",
-        {
-          headers: {
-            'authorization': this.$root.userToken
-          },
-          method: "GET"
-        }
-      )
-        .then(response => {
-          if (response.ok) {
-            response.json().then(json => {
-              this.$root.$emit('SetNotification',json);
-            });
-          } else {
-            response.json().then(json => {
-              alert(response.status + ": " + json.message);
-            });
-          }
-        })
-        .catch(err => console.error(err));
-    },
-    changeMenu: function(roles) {
-      this.$root.$emit("loginChangeMenu", roles);
-    }
   }
 };
 </script>

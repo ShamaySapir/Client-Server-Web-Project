@@ -14,6 +14,10 @@ export default {
   async mounted() {
     try {
       const response = await axios.get("api/user/family");
+      if(response.status!=200){
+        console.log("rederecting")
+        this.$router.push("/home"); 
+      }
       this.recipes = response.data.data;
     } catch (error) {
       console.log(error);
@@ -25,10 +29,6 @@ export default {
       recipes: [],
     };
   },
-  //   mounted(){
-  //     if(!(this.$root.userToken == "" || this.$root.userToken == null)){// logged in so send him to home page
-  // this.$router.push("/home");    }
-  //  },
   components: {
     PreviewList,
   },

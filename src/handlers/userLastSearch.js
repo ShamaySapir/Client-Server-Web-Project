@@ -1,7 +1,7 @@
 const userLastSearchHandler = async (req, res, next) => {
   try {
     const db = req.app.db;
-    const id = req.params.userId;
+    const id = req.session.user_id;
     // get from db
     const lastSearchObj = await db.users.findOne({
       where: { id: id },
