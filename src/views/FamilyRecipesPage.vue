@@ -14,6 +14,10 @@ export default {
   async mounted() {
     try {
       const response = await axios.get("api/user/family");
+      if(response.status!=200){
+        console.log("rederecting")
+        this.$router.push("/home"); 
+      }
       this.recipes = response.data.data;
     } catch (error) {
       console.log(error);

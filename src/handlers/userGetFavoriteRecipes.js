@@ -2,13 +2,13 @@ const utils = require("../shared/utils");
 const userGetFavoriteRecipesHandler = async (req, res, next) => {
   try {
     const db = req.app.db;
-    const id = req.params.userId;
+    const id = req.session.user_id;
     // get from db
     const allUserRecipes = await db.usersRecipes.findAll({
       where: { userId: id },
       include: [{ model: db.recipes, as: "recipe" }],
     });
-    const allUserRecipesId = allUserRecipes.map(
+    let allUserRecipesId = allUserRecipes.map(
       ({
         recipe: {
           id,
@@ -45,9 +45,12 @@ const userGetFavoriteRecipesHandler = async (req, res, next) => {
       favoriteRecipes.push(utils.getRecipePreviewByData(recipe));
     }
     // return value
+    favoriteRecipes.forEach(recipe=>{
+      allUserRecipesId.push(recipe)
+    })
     res
       .status(200)
-      .json({ db: allUserRecipesId, spoonacular: favoriteRecipes });
+      .json({ data: allUserRecipesId });
   } catch (err) {
     res.status(400).send("bad request");
   }

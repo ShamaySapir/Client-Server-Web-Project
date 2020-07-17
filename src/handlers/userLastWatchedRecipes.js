@@ -2,7 +2,7 @@ const utils = require("../shared/utils");
 const userLastWatchedRecipesHandler = async (req, res, next) => {
   try {
     const db = req.app.db;
-    const id = req.params.userId;
+    const id = req.session.user_id;
     let lastWatched = await db.viewed.findAll({
       where: { userId: id },
       order: [["updatedAt", "DESC"]],
