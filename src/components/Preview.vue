@@ -1,11 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="400">
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    >
-      <v-card-title>{{recipe}}</v-card-title>
+    <v-img class="white--text align-end" height="200px" :src="recipe.image">
+      <v-card-title>{{recipe.title}}</v-card-title>
     </v-img>
 
     <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
@@ -28,6 +24,16 @@ export default {
   name: "preview",
   props: ["recipe"],
 };
+
+  /* const recipes = response.data.recipes.map((r) => {
+  return {
+  id: r.id,
+  title: r.title,
+  readyInMinutes: r.readyInMinutes,
+  image: r.image,
+  aggregateLikes: r.aggregateLikes
+  };
+  });*/
 </script>
 
 <style scoped></style>

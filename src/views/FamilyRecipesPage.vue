@@ -13,20 +13,8 @@ export default {
   name: "FamilyRecipesPage",
   async mounted() {
     try {
-      const t = document.cookie
-      const response = await axios.get("api/user/1/family");
-      console.log(response);
-      /* const recipes = response.data.recipes.map((r) => {
-        return {
-          id: r.id,
-          title: r.title,
-          readyInMinutes: r.readyInMinutes,
-          image: r.image,
-          aggregateLikes: r.aggregateLikes
-        };
-      });*/
-
-      // insert to this.recipes
+      const response = await axios.get("api/user/family");
+      this.recipes = response.data.data;
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +22,7 @@ export default {
   },
   data: function () {
     return {
-      recipes: [1, 2, 3, 4, 5, 6],
+      recipes: [],
     };
   },
   //   mounted(){

@@ -1,6 +1,5 @@
 const lahoh = {
-  image:
-    "https://3.bp.blogspot.com/-2mB_gW84CbM/Tk4Up8as7EI/AAAAAAAAOfw/t0vEymNL8L4/s1600/P1210513.JPG",
+  image: "https://img.wcdn.co.il/f_auto,w_700/2/4/7/8/2478261-46.jpg",
   title: "Lahoh",
   readyInMinutes: 180,
   likes: 1,
