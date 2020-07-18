@@ -51,7 +51,7 @@
       </v-form>
     </div>
   </v-card>
-  <PreviewList :recpies="searchResults"/>
+  <PreviewList title="Results:" :recipes="searchResults"/>
 </div>
 </template>
 <script>
@@ -69,16 +69,15 @@ export default {
       // console.log(this.cuisine)
       // console.log(this.diet)
       // console.log(this.intolerance)
-      const response = await axios.post("api/recipes/search",{
+      await axios.post("api/recipes/search",{
         query:this.query,
         number:this.number,
         cuisine:this.cuisine,
         diet:this.diet,
         intolerance:this.intolerance,
 
-      });
-      console.log(response)
-      this.searchResults = response.data;
+      }).then(res => this.searchResults = res.data)
+      console.log(this.searchResults)
     },
   },
   data: ()=>({

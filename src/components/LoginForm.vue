@@ -45,7 +45,6 @@ export default {
     username: "",
     password: "",
     passwordVisable: false,
-    recipes:[]
   }),
   methods: {
     async login() {
