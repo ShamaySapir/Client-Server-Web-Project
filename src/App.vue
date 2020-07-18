@@ -50,7 +50,7 @@
         <!-- <v-img :src="require('../src/assets/morbis-logo.svg')" contain height="50px" width="50px"></v-img> -->
         <span class="hidden-sm-and-down">ReciPyjamot</span>
       </v-toolbar-title>
-     <!-- <v-text-field
+      <!-- <v-text-field
         flat
         solo-inverted
         hide-details
@@ -62,23 +62,39 @@
       -->
       <v-btn color="black" class="white--text" style="margin:10px" to="/home">Home</v-btn>
       <v-btn color="black" class="white--text" style="margin:10px" to="/about">About</v-btn>
-      <v-spacer/>
-      <v-btn color="black" id="loginButton" class="white--text" style="margin:10px;" to="/login">Login</v-btn>
-      <v-btn color="black" id="registerButton" class="white--text" style="margin:10px" to="/register">Register</v-btn>
+      <v-spacer />
+      <v-btn
+        color="black"
+        id="loginButton"
+        class="white--text"
+        style="margin:10px;"
+        to="/login"
+        v-if="!$root.isLoggedIn"
+      >Login</v-btn>
+      <v-btn
+        color="black"
+        id="loginButton"
+        class="white--text"
+        style="margin:10px;"
+        to="/logout"
+        v-if="$root.isLoggedIn"
+      >Logout</v-btn>
+      <v-btn
+        color="black"
+        v-if="!$root.isLoggedIn"
+        id="registerButton"
+        class="white--text"
+        style="margin:10px"
+        to="/register"
+      >Register</v-btn>
       <!--
       <v-btn color="black" id="logoutButton" class="white--text" style="margin:10px;" @click="Logout">Logout</v-btn>
       <v-btn color="black" id="all_user_logoutButton" class="white--text" style="margin:10px;" @click="ForceLogout">All-User Logout</v-btn>
       -->
       <v-btn icon to="/settings">
-        <v-badge
-        :content="notificationCount"
-        :value="notificationCount"
-        color="red"
-        overlap
-        
-      >
-        <v-icon>apps</v-icon>
-      </v-badge>
+        <v-badge :content="notificationCount" :value="notificationCount" color="red" overlap>
+          <v-icon>apps</v-icon>
+        </v-badge>
       </v-btn>
       <!--
       <v-btn to="/notificationPage" icon>

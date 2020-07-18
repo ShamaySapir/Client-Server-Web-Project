@@ -1,5 +1,5 @@
 const axios = require("axios");
-const db = require("../db/dbUtils");
+const db = require("../db/DButils");
 
 const crypto = require("crypto-js");
 

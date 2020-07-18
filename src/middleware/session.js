@@ -5,10 +5,10 @@ const sessionMiddleware = session({
   secret: process.env.COOKIE_SECRET, // the encryption key
   duration: 20 * 60 * 1000, // expired after 20 sec
   activeDuration: 0, // if expiresIn < activeDuration,
-  
-  // the session will be extended by activeDuration milliseconds
   cookie: {
-    httpOnly:false
-  }
+    httpOnly: false,
+  },
+  // the session will be extended by activeDuration milliseconds
 });
+
 module.exports = sessionMiddleware;

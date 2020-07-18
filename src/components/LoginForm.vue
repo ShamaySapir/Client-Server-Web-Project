@@ -37,7 +37,6 @@
 <script>
 import crypto from "crypto-js";
 import axios from "axios";
-
 export default {
   name: "LoginForm",
   data: () => ({
@@ -47,25 +46,30 @@ export default {
     passwordVisable: false,
     recipes:[]
   }),
+  // mounted: function () {
+  // const sessionCookie = this.$cookies.get('session');
+  // if (sessionCookie){
+  //   this.$root.isLoggedIn = true;
+  //   this.$router.go(-1);
+
+  // }  
+  // },
   methods: {
     async login() {
       if (!this.valid) {
         alert("There's a problem");
         return;
       }
-      await axios.post("api/auth/Login", {
+      // eslint-disable-next-line no-unused-vars
+    
+await axios.post("api/auth/Login", {
           username: this.username,
           password: crypto.SHA256(this.password).toString()
       })
         .then(response => {
           if (response.status==200) {
-              // this.$root.userToken = json.token;
-              // this.$root.roles = json.roles;
-              // this.$root.memberID = json.memberID;
-              // this.changeMenu(this.$root.roles);
-              alert("Logged In successfully !");
-              // console.log(this.$root.userToken);
-              this.$router.push("/home");
+            this.$root.isLoggedIn = true;
+            this.$router.go(-1);
           } else {
             if (response.status == 401) {
               alert("The combination of username and password doesn't exist");
@@ -78,8 +82,9 @@ export default {
         })
         .catch(err => {console.error(err)});
     },
-  }
+  },
 };
+
 </script>
 
 <style scoped>

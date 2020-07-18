@@ -12,6 +12,7 @@ const recipesSearchHandler = async (req, res, next) => {
     const db = req.app.db;
     const { id, query, cuisine, diet, intolerances, number } = req.body;
     // TODO: Add this search object if a user is connected - check a cookie
+    // eslint-disable-next-line no-constant-condition
     if (true) {
       const searchObj = {
         id,
@@ -41,8 +42,8 @@ const recipesSearchHandler = async (req, res, next) => {
       )
     );
     recipes = recipes.map((recipe) => getRecipePreviewByData(recipe.data));
-    let result = [];
-    recipes.forEach(recipe=>result.push(recipe))
+    const result = [];
+    recipes.forEach((recipe) => result.push(recipe));
     if (recipes.length != 0) {
       res.status(200).send(result);
     } else {

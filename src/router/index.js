@@ -12,11 +12,17 @@ import UserRecipesPage from "../views/UserRecipesPage.vue";
 import FavoriteRecipesPage from "../views/FavoriteRecipesPage.vue";
 import FamilyRecipesPage from "../views/FamilyRecipesPage.vue";
 import SettingsPage from "../views/SettingsPage.vue";
-import RecipePage from "../views/RecipePage.vue"
+import RecipePage from "../views/RecipePage.vue";
 
 Vue.use(Router);
-
-export default new Router({
+const protectedRoutes = [
+  "CreateRecipePage",
+  "FamilyRecipesPage",
+  "userRecipesPage",
+  "RecipePage",
+  "FavoriteRecipesPage",
+];
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -96,3 +102,20 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  const sessionCookie = router.app.$cookies.get("session");
+  if (sessionCookie && !router.app.isLoggedIn) {
+    router.app.isLoggedIn = true;
+  }
+  if (!protectedRoutes.includes(to.name)) {
+    next();
+  } else {
+    if (!sessionCookie) {
+      router.app.isLoggedIn = false;
+      next({ name: "Login Page" });
+    }
+    next();
+  }
+});
+export default router;
