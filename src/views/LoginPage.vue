@@ -1,5 +1,6 @@
 <template>
   <div>
+    <br>
     <previewList :recipes="recipes"/>
     <LoginForm/>
   </div>

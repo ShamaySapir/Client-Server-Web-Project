@@ -9,19 +9,19 @@
 
 <script>
 // @ is an alias to /src
-import axios from 'axios'
+// import axios from 'axios'
 import PreviewList from '../components/PreviewList.vue';
 import LoginForm from '../components/LoginForm.vue';
 export default {
   name: "HomePage",
   async mounted() {
-    const RandomRecipesRespone = await axios.get('api/recipes');
-    this.randomRecipes = RandomRecipesRespone.data;
-    const lastWatchedResponse = await axios.get('api/user/lastWatched');
-    this.loggedin = lastWatchedResponse.status==200;
-    if(this.loggedin){
-      this.lastWatchedRecipes = lastWatchedResponse.data;
-    }
+    //  const RandomRecipesRespone = await axios.get('api/recipes');
+    //  this.randomRecipes = RandomRecipesRespone.data;
+    //  const lastWatchedResponse = await axios.get('api/user/lastWatched');
+    // this.loggedin = lastWatchedResponse.status==200;
+    // if(this.loggedin){
+    //   this.lastWatchedRecipes = lastWatchedResponse.data;
+    // }
   },
   data: ()=>({
     randomRecipes:[],

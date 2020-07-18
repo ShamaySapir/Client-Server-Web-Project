@@ -3,6 +3,7 @@ const {
   getRecipeInfoByID,
   getRecipeIngredientsByID,
   getRecipeInstructionsByID,
+  isViewed,
 } = require("../shared");
 
 const getRecipeHandler = async (req, res, next) => {
@@ -28,8 +29,8 @@ const getRecipeHandler = async (req, res, next) => {
       likes: infoAPI.data.aggregateLikes,
       vegan: infoAPI.data.vegan, // TODO change the word 'vegen' to 'vegan' in the API
       gluten_free: infoAPI.data.glutenFree,
-      viewed: isViewed(userId, infoAPI.data.id), // TODO get userId
-      favorite: isFavorite(userId, infoAPI.data.id), // TODO get userId
+      viewed: isViewed(req.session.user_id, infoAPI.data.id), // TODO get userId
+      favorite: isFavorite(req.session.user_id, infoAPI.data.id), // TODO get userId
     };
     const ingredients = [];
     ingredientsAPI.data.ingredients.forEach((ingredient) => {
