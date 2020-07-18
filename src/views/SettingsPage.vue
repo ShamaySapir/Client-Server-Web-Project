@@ -1,6 +1,5 @@
 <template>
   <div class="my-10">
-  <p>hi</p>
     <Settings/>
   </div>
 </template>

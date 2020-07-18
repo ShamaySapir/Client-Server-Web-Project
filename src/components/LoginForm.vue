@@ -34,10 +34,7 @@
     <v-spacer></v-spacer>
   </v-card>
 </template>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 <script>
-import SockJS from "sockjs-client";
-import Stomp from "webstomp-client";
 import crypto from "crypto-js";
 import axios from "axios";
 
@@ -56,7 +53,7 @@ export default {
         alert("There's a problem");
         return;
       }
-      const res = await axios.post("api/auth/Login", {
+      await axios.post("api/auth/Login", {
           username: this.username,
           password: crypto.SHA256(this.password).toString()
       })

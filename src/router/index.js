@@ -12,6 +12,7 @@ import UserRecipesPage from "../views/UserRecipesPage.vue";
 import FavoriteRecipesPage from "../views/FavoriteRecipesPage.vue";
 import FamilyRecipesPage from "../views/FamilyRecipesPage.vue";
 import SettingsPage from "../views/SettingsPage.vue";
+import RecipePage from "../views/RecipePage.vue"
 
 Vue.use(Router);
 
@@ -74,6 +75,12 @@ export default new Router({
       path: "/myRecipes",
       name: "userRecipesPage",
       component: UserRecipesPage,
+    },
+    {
+      // set path for a recipe
+      path: "/recipe",
+      name: "RecipePage",
+      component: RecipePage,
     },
     {
       // set path for create a new recipe

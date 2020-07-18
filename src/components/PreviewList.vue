@@ -1,11 +1,7 @@
 <template>
-  <div>
-    <div align="center">
-    </div>
     <div class="preview">
       <Preview v-for="recipe in recipes" :key="recipe" :recipe="recipe"></Preview>
     </div>
-  </div>
 </template>
 <script>
 import Preview from "@/components/Preview.vue";

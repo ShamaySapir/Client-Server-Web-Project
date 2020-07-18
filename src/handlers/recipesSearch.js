@@ -41,8 +41,10 @@ const recipesSearchHandler = async (req, res, next) => {
       )
     );
     recipes = recipes.map((recipe) => getRecipePreviewByData(recipe.data));
+    let result = [];
+    recipes.forEach(recipe=>result.push(recipe))
     if (recipes.length != 0) {
-      res.status(200).send(recipes);
+      res.status(200).send(result);
     } else {
       res.status(404).send("no results found");
     }

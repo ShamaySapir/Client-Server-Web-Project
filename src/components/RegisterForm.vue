@@ -1,100 +1,133 @@
 <template>
-  <v-card raised class="mx-auto my-auto" max-width="500">
+  <v-card raised class="mx-auto my-auto" max-width="700">
     <div align="center" class="primary mb-10 py-3 white--text">
       <h1 class="primary">Register</h1>
     </div>
-
-    <div align="center">
-      <v-form ref="form" v-model="valid">
-        <v-text-field
-          class="mx-5"
-          outlined
-          v-model="username"
-          :prepend-icon="'mdi-account'"
-          :rules="usernameRules"
-          label="Username"
-          required
-        ></v-text-field>
-        <v-text-field
-          class="mx-5"
-          outlined
-          v-model="name"
-          :prepend-icon="'mdi-pencil'"
-          :rules="nameRules"
-          label="First Name"
-          required
-        ></v-text-field>
-        <v-text-field
-          class="mx-5"
-          outlined
-          v-model="name"
-          :prepend-icon="'mdi-pencil'"
-          :rules="nameRules"
-          label="Last Name"
-          required
-        ></v-text-field>
-        <v-text-field
-          class="mx-5"
-          outlined
-          v-model="name"
-          :prepend-icon="'mdi-earth'"
-          :rules="nameRules"
-          label="Country"
-          required
-        ></v-text-field>
-        <v-text-field
-          class="mx-5"
-          outlined
-          v-model="password"
-          :prepend-icon="'mdi-lock'"
-          :append-icon="passwordVisable ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="passwordVisable = !passwordVisable"
-          :type="passwordVisable ? 'text' : 'password'"
-          :rules="passwordRules"
-          label="Password"
-          required
-        ></v-text-field>
-                <v-text-field
-          class="mx-5"
-          outlined
-          v-model="password"
-          :prepend-icon="'mdi-lock'"
-          :append-icon="passwordVisable ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="passwordVisable = !passwordVisable"
-          :type="passwordVisable ? 'text' : 'password'"
-          :rules="passwordRules"
-          label="Confirm Password"
-          required
-        ></v-text-field>
-        <v-text-field
-          class="mx-5"
-          outlined
-          v-model="email"
-          :prepend-icon="'mdi-email'"
-          :type="'email'"
-          :rules="emailRules"
-          label="E-mail"
-          required
-        ></v-text-field>
-        <v-btn color="success" block @click="register">
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-flex xs14>
+        <v-card color="white">
+        <v-card-title>Public Infomation</v-card-title>
+          <br>
+          <v-text-field
+            class="mx-5"
+            outlined
+            v-model="username"
+            :prepend-icon="'mdi-account'"
+            :rules="usernameRules"
+            label="Username"
+            required
+          ></v-text-field>
+          <v-text-field
+            class="mx-5"
+            outlined
+            v-model="email"
+            :prepend-icon="'mdi-email'"
+            :type="'email'"
+            :rules="emailRules"
+            label="E-mail"
+            required
+          ></v-text-field>
+          <v-flex xs11 sm11 d-flex>
+            <v-select
+              v-model="country"
+              label="Country"
+              :prepend-icon="'mdi-lock'"
+              :items="countries"
+              outlined
+              required
+            ></v-select>
+          </v-flex>
+          <v-text-field
+            class="mx-5"
+            outlined
+            v-model="imageURL"
+            :prepend-icon="'mdi-image'"
+            label="Image URL"
+            required
+          ></v-text-field>
+        </v-card>
+      </v-flex>
+      <v-flex xs8>
+        <v-card color="white">
+          <v-card-title>Private Infomation</v-card-title>
+          <v-text-field
+            class="mx-5"
+            outlined
+            v-model="name"
+            :prepend-icon="'mdi-pencil'"
+            :rules="nameRules"
+            label="First Name"
+            required
+          ></v-text-field>
+          <v-text-field
+            class="mx-5"
+            outlined
+            v-model="name"
+            :prepend-icon="'mdi-pencil'"
+            :rules="nameRules"
+            label="Last Name"
+            required
+          ></v-text-field>
+          <v-text-field
+            class="mx-5"
+            outlined
+            v-model="password"
+            :prepend-icon="'mdi-lock'"
+            :append-icon="passwordVisable ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="passwordVisable = !passwordVisable"
+            :type="passwordVisable ? 'text' : 'password'"
+            :rules="passwordRules"
+            label="Password"
+            required
+          ></v-text-field>
+          <v-text-field
+            class="mx-5"
+            outlined
+            v-model="password"
+            :prepend-icon="'mdi-lock'"
+            :append-icon="passwordVisable ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="passwordVisable = !passwordVisable"
+            :type="passwordVisable ? 'text' : 'password'"
+            :rules="passwordRules"
+            label="Confirm Password"
+            required
+          ></v-text-field>
+        </v-card>
+      </v-flex>
+      <v-flex xs4>
+        <v-card dark color="primary">
+          <v-card-title>Profile</v-card-title>
+          <v-img :src="imageURL==''?'http://tech.taskrabbit.com/images/authors/missing_person.png':imageURL" aspect-ratio="1"></v-img>
+          <v-card-text>
+            <strong>{{username}}</strong> from {{country}}<br>{{email}}
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
+          <v-btn color="success" block @click="register">
           Register
           <v-icon right>mdi-check-circle</v-icon>
         </v-btn>
-      </v-form>
-    </div>
-    <v-spacer></v-spacer>
   </v-card>
 </template>
 
 <script>
+import crypto from 'crypto-js'
 export default {
   name: "RegisterForm",
+  props:{
+    countries:[],
+  },
   data: () => ({
     valid: false,
     username: "",
     password: "",
+    country:"",
     name: "",
     email: "",
+    imageURL:'',
     usernameRules: [
       v =>
         !v ||
@@ -146,7 +179,8 @@ export default {
         },
         body: JSON.stringify({
           username: this.username,
-          password: this.password,
+          password: crypto.SHA256(this.password).toString(),
+          country: this.country,
           name: this.name,
           email: this.email
         })
