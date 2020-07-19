@@ -124,14 +124,14 @@ export default {
   },
   data: () => ({
     valid: false,
-    username: "",
-    password: "",
-    confirmPassword: "",
-    country:"",
-    fisrtName: "",
-    lastName: "",
-    email: "",
-    imageURL:'',
+    username: "BojackHorseman",
+    password: "a12345678A",
+    confirmPassword: "a12345678A",
+    country:"United States of America",
+    firstName: "Bojack",
+    lastName: "Horseman",
+    email: "borseman@gmail.com",
+    imageURL:'https://tse1.mm.bing.net/th?id=OIP.EkbXJQEr85A1vYYtRGqqPgHaEJ&pid=Api&rs=1&c=1&qlt=95&w=182&h=102',
     usernameRules: [
       v =>
         !v ||
@@ -169,7 +169,7 @@ export default {
         this.password==null||
         this.confirmPassword==null||
         this.country==null||
-        this.fisrtName==null||
+        this.firstName==null||
         this.lastName==null||
         this.email==null||
         this.imageURL==null
@@ -177,7 +177,7 @@ export default {
         alert("Please fill every cell before registering");
         return;
       }
-      await axios.post("/api/register",{
+      await axios.post("/api/auth/register",{
           username: this.username,
           firstName: this.firstname,
           lastName: this.lastName,

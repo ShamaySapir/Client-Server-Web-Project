@@ -77,6 +77,7 @@ const registerInDB = async (registerRequest) => {
     return false;
   }
   if (password != confirmationPassword) {
+    
     return false;
   }
   const query = `INSERT INTO [dbo].[users]
