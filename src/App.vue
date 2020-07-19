@@ -1,68 +1,40 @@
 <template>
   <v-app id="morbis">
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
-      <v-list dense>
-        <template v-for="item in items">
-          <v-row v-if="item.heading" :key="item.heading" align="center">
-            <v-col cols="6">
-              <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
-            </v-col>
-            <v-col cols="6" class="text-center">
-              <a href="#!" class="body-2 black--text">EDIT</a>
-            </v-col>
-          </v-row>
-          <v-list-group
-            v-else-if="item.children"
-            :key="item.text"
-            v-model="item.model"
-            :prepend-icon="item.model ? item.icon : item['icon-alt']"
-            append-icon
-            :hidden="item.hidden"
-            :aria-pressed="false"
-          >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>{{ item.text }}</v-list-item-title>
-              </v-list-item-content>
-            </template>
-            <v-list-item v-for="(child, i) in item.children" :key="i" link :to="child.to">
-              <v-list-item-content>
-                <v-list-item-title :link="child.link">{{ child.text }}</v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-action v-if="child.icon">
-                <v-icon>{{ child.icon }}</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list-group>
-          <v-list-item v-else :key="item.text" :hidden="item.hidden" link :to="item.to">
-            <v-icon>{{ item.icon }}</v-icon>
-            <v-list-item-content>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </template>
-      </v-list>
-    </v-navigation-drawer>
-
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title style="width: 150px" class="ml-0 pl-4">
-        <!-- <v-img :src="require('../src/assets/morbis-logo.svg')" contain height="50px" width="50px"></v-img> -->
         <span class="hidden-sm-and-down">ReciPyjamot</span>
       </v-toolbar-title>
-      <!-- <v-text-field
-        flat
-        solo-inverted
-        hide-details
-        prepend-inner-icon="mdi-magnify"
-        label="Search"
-        class="hidden-sm-and-down"
-      />
-      <v-spacer />
-      -->
       <v-btn color="black" class="white--text" style="margin:10px" to="/home">Home</v-btn>
       <v-btn color="black" class="white--text" style="margin:10px" to="/about">About</v-btn>
+      <v-btn color="black" class="white--text" style="margin:10px" to="/search">Search</v-btn>
+
       <v-spacer />
+      <v-btn
+        color="black"
+        id="loginButton"
+        class="white--text"
+        style="margin:10px;"
+        to="/favorites"
+        v-if="$root.isLoggedIn"
+      >Favorites</v-btn>
+      <v-btn
+        color="black"
+        id="loginButton"
+        class="white--text"
+        style="margin:10px;"
+        to="/myRecipes"
+        v-if="$root.isLoggedIn"
+      >My Recipes</v-btn>
+      <v-btn
+        color="black"
+        id="loginButton"
+        class="white--text"
+        style="margin:10px;"
+        to="/family"
+        v-if="$root.isLoggedIn"
+      >Family Recipes</v-btn>
+      <v-spacer />
+
       <v-btn
         color="black"
         id="loginButton"
@@ -72,11 +44,11 @@
         v-if="!$root.isLoggedIn"
       >Login</v-btn>
       <v-btn
+        v-on:click="logout"
         color="black"
         id="loginButton"
         class="white--text"
         style="margin:10px;"
-        to="/logout"
         v-if="$root.isLoggedIn"
       >Logout</v-btn>
       <v-btn
@@ -87,27 +59,6 @@
         style="margin:10px"
         to="/register"
       >Register</v-btn>
-      <!--
-      <v-btn color="black" id="logoutButton" class="white--text" style="margin:10px;" @click="Logout">Logout</v-btn>
-      <v-btn color="black" id="all_user_logoutButton" class="white--text" style="margin:10px;" @click="ForceLogout">All-User Logout</v-btn>
-      -->
-      <v-btn icon to="/settings">
-        <v-badge :content="notificationCount" :value="notificationCount" color="red" overlap>
-          <v-icon>apps</v-icon>
-        </v-badge>
-      </v-btn>
-      <!--
-      <v-btn to="/notificationPage" icon>
-      <v-badge
-        :content="notificationCount"
-        :value="notificationCount"
-        color="red"
-        overlap
-      >
-        <v-icon>mdi-bell</v-icon>
-      </v-badge>
-      </v-btn>
-      -->
       <v-btn icon large>
         <v-avatar size="32px" item>
           <v-img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Morbis" />
@@ -116,7 +67,6 @@
     </v-app-bar>
     <v-content>
       <router-view />
-      <!-- content here -->
     </v-content>
   </v-app>
 </template>
@@ -153,7 +103,6 @@ export default {
     this.$root.$on("SetNotification", (numberOfNotifications) => {
       this.notificationCount = numberOfNotifications;
     })
-    // this.$root.baseURL = location.origin;
     this.$root.baseURL = "http://localhost:3000";
     document.getElementById('logoutButton').style.display = 'none';
   },
@@ -170,6 +119,10 @@ export default {
     notificationCount:0,
   }),
   methods: {
+    logout: function() {
+      this.$cookies.remove("session");
+      this.$router.push("/home");
+    },
     remove: function(arr) {
       let what;
         // eslint-disable-next-line prefer-rest-params

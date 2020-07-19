@@ -46,14 +46,6 @@ export default {
     passwordVisable: false,
     recipes:[]
   }),
-  // mounted: function () {
-  // const sessionCookie = this.$cookies.get('session');
-  // if (sessionCookie){
-  //   this.$root.isLoggedIn = true;
-  //   this.$router.go(-1);
-
-  // }  
-  // },
   methods: {
     async login() {
       if (!this.valid) {

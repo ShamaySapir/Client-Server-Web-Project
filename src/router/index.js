@@ -103,8 +103,11 @@ const router = new Router({
   ],
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
   const sessionCookie = router.app.$cookies.get("session");
+  if (!sessionCookie) {
+    router.app.isLoggedIn = false;
+  }
   if (sessionCookie && !router.app.isLoggedIn) {
     router.app.isLoggedIn = true;
   }
@@ -112,7 +115,6 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     if (!sessionCookie) {
-      router.app.isLoggedIn = false;
       next({ name: "Login Page" });
     }
     next();
