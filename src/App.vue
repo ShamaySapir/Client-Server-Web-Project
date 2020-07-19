@@ -50,6 +50,7 @@
         class="white--text"
         style="margin:10px;"
         v-if="$root.isLoggedIn"
+        to="/home"
       ><v-icon left>logout</v-icon> Logout</v-btn>
       <v-btn
         color="black"

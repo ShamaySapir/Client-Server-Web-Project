@@ -63,7 +63,7 @@
         </div>
       </v-btn>
 
-      <v-btn color="orange" text>Watch Recipe</v-btn>
+      <v-btn color="orange" text v-on:click="openRecipe">Watch Recipe</v-btn>
     </v-card-actions>
   </v-card>
 </template>

@@ -36,8 +36,9 @@
                   <b>{{preview.gluten_free?"Gluten Free":""}}<br>
                   {{preview.vegan?"Vegan":""}}</b><br>
                   </v-card-text>
+                  <v-spacer></v-spacer>
                   <v-btn @click="favorite()">
-                    {{this.preview.favorite?`3`:`/3`}}
+                    {{this.preview.favorite?`unFavorite`:`Favorite`}}
                   </v-btn>
                 </v-card>
               </v-flex>
