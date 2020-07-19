@@ -3,12 +3,21 @@
     <h1>Welcome {{ userName }}</h1>
     <v-layout row>
       <v-flex xs6>
-        <previewList title="Some Random Recipes!" :recipes="randomRecipes" />
+        <previewList title="Explore these recipes" :recipes="randomRecipes" />
+        <div style="text-align: center;">
+          <v-btn
+            color="black"
+            class="white--text"
+            style="margin: 10px;"
+            v-on:click="getRandomRecipes"
+            >More</v-btn
+          >
+        </div>
       </v-flex>
       <v-flex xs6 order-lg2>
         <LoginForm v-if="!isLoggedIn" :key="isLoggedIn" />
         <previewList
-          title="Your Latest Recipes!"
+          title="Last watched recipes"
           :recipes="lastWatchedRecipes"
           v-if="isLoggedIn"
         />
@@ -25,6 +34,11 @@ import store from "./store";
 export default {
   name: "HomePage",
   async mounted() {},
+  methods: {
+    getRandomRecipes() {
+      // TODO
+    },
+  },
   data: function () {
     return {
       randomRecipes: [

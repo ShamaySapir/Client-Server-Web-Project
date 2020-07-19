@@ -1,8 +1,12 @@
 <template>
-  <div align="center">
-    {{title}}
+  <div color="primary" align="center">
+    {{ title }}
     <div class="preview">
-      <Preview v-for="recipe in recipes" :key="recipe.id" :recipe="recipe"></Preview>
+      <Preview
+        v-for="recipe in recipes"
+        :key="recipe.id"
+        :recipe="recipe"
+      ></Preview>
     </div>
   </div>
 </template>
@@ -10,7 +14,7 @@
 import Preview from "@/components/Preview.vue";
 export default {
   name: "PreviewList",
-  props: ["recipes","title"],
+  props: ["recipes", "title"],
   components: {
     Preview,
   },
