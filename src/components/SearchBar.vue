@@ -46,7 +46,7 @@
         </v-radio-group>
         <v-btn color="success" block @click="search">
           Search
-          <v-icon dark right>serach</v-icon>
+          <v-icon dark right>search</v-icon>
         </v-btn>
       </v-form>
     </div>
