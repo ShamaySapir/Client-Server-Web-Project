@@ -11,8 +11,8 @@ import SearchPage from "../views/SearchPage.vue";
 import UserRecipesPage from "../views/UserRecipesPage.vue";
 import FavoriteRecipesPage from "../views/FavoriteRecipesPage.vue";
 import FamilyRecipesPage from "../views/FamilyRecipesPage.vue";
-import SettingsPage from "../views/SettingsPage.vue";
 import RecipePage from "../views/RecipePage.vue";
+import store, { setLoggedIn, setLoggedOut } from "../views/store";
 
 Vue.use(Router);
 const protectedRoutes = [
@@ -83,12 +83,6 @@ const router = new Router({
       component: UserRecipesPage,
     },
     {
-      // set path for create a new recipe
-      path: "/settings",
-      name: "settings",
-      component: SettingsPage,
-    },
-    {
       // set path for a recipe
       path: "/:id",
       name: "RecipePage",
@@ -105,18 +99,14 @@ const router = new Router({
 
 router.beforeEach((to, _, next) => {
   const sessionCookie = router.app.$cookies.get("session");
-  if (sessionCookie && !router.app.isLoggedIn) {
-    router.app.isLoggedIn = true;
+  if (sessionCookie && !store.isLoggedIn) {
+    setLoggedIn();
   }
   if (!protectedRoutes.includes(to.name)) {
-    if (to.path !== "/login") {
-      next();
-    } else {
-      next({ name: "Home Page" });
-    }
+    next();
   } else {
     if (!sessionCookie) {
-      router.app.isLoggedIn = false;
+      setLoggedOut();
       next({ name: "Login Page" });
     }
     next();

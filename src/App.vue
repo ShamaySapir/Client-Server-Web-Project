@@ -92,28 +92,8 @@
 </template>
 
 <script>
-const userMenu = {
-  icon: "mdi-chevron-up",
-  "icon-alt": "mdi-chevron-down",
-  text: "Recipes",
-  model: false,
-  hidden: false,
-  children: [
-    { text: "My Recipes", icon: "mdi-food-variant", to: "/myRecipes" },
-    { text: "Favorites", icon: "mdi-heart", to: "/favorites" },
-    { text: "Family Recipes", icon: "mdi-account-group", to: "/family" },
-  ]
-};
+  import store, {setLoggedOut} from "./views/store";
 
-const menus = [];
-menus["USER"] = userMenu;
-const menu = [
-  { icon: "mdi-home", text: "\t Home", to: "/home" },
-  { text: "Search Recipes", icon: "mdi-magnify", to: "/search" },
-  { text: "New Recipe", icon: "mdi-magnify", to: "/create" },
-  userMenu,
-  { icon: "mdi-cog", text: "Settings", to: "/settings" }
-];
 export default {
 
   mounted() {
@@ -128,24 +108,23 @@ export default {
     drawer: null,
     registerButton: null,
     logoutButton: null,
-    items: menu,
     notificationCount:0,
-    isLoggedIn: this.$root.isLoggedIn,
     }
   },
   methods: {
     logout: function() {
       this.$cookies.remove("session");
-      this.isLoggedIn = false;
-      this.$root.isLoggedIn = false;
+      setLoggedOut()
       if (this.$router.currentRoute.path != "/home") {
         this.$router.push("/home");
       }
-      else {
-        this.$emit('render');
-      }
       
     }
-  }
+  },
+  computed: {
+    isLoggedIn() {
+        return store.isLoggedIn;
+      }
+  },
 };
 </script>

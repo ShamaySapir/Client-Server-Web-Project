@@ -39,6 +39,7 @@
 <script>
 import crypto from "crypto-js";
 import axios from "axios";
+import {setLoggedIn} from '../views/store'
 export default {
   name: "LoginForm",
   data: function() {
@@ -47,7 +48,6 @@ export default {
     username: "",
     password: "",
     passwordVisable: false,
-    // isLoggedIn: this.$root.isLoggedIn,
     }
   },
   methods: {
@@ -62,14 +62,13 @@ export default {
       })
         .then(response => {
           if (response.status==200) {
-            this.$root.isLoggedIn = true;
-            // this.isLoggedIn = true;
+            setLoggedIn()
             if (this.$router.currentRoute.path != "/home") {
               this.$router.go(-1);
             }
-            else {
-              this.$emit('render');
-            }
+            // else {
+            //   this.$emit('render');
+            // }
           } else {
             if (response.status == 401) {
               alert("The combination of username and password doesn't exist");

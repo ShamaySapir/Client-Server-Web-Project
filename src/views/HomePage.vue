@@ -6,7 +6,7 @@
         <previewList title="Some Random Recipes!" :recipes="randomRecipes" />
       </v-flex>
       <v-flex xs6 order-lg2>
-        <LoginForm v-if="!isLoggedIn" @render="render" :key="isLoggedIn" />
+        <LoginForm v-if="!isLoggedIn" :key="isLoggedIn" />
         <previewList title="Your Latest Recipes!" :recipes="lastWatchedRecipes" v-if="isLoggedIn" />
       </v-flex>
     </v-layout>
@@ -16,6 +16,8 @@
 <script>
 import PreviewList from '../components/PreviewList.vue';
 import LoginForm from '../components/LoginForm.vue';
+  import store from "./store";
+
 export default {
   name: "HomePage",
   async mounted() {
@@ -28,13 +30,12 @@ export default {
     lastWatchedRecipes:[ {"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}},
      {"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}},
       {"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}}],
-    isLoggedIn: this.$root.isLoggedIn,
     }
   },
-  methods: {
-    render: function() {
-      this.isLoggedIn = this.$root.isLoggedIn;
-    }
+  computed: {
+    isLoggedIn() {
+        return store.isLoggedIn;
+      }
   },
   components:{
     PreviewList,
