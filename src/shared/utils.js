@@ -80,10 +80,19 @@ const registerInDB = async (registerRequest) => {
     
     return false;
   }
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth().toString().length==1?'0'+date.getMonth():date.getMonth();
+  const day = date.getDate().toString().length==1?'0'+date.getDate():date.getDate();
+  const hours = date.getHours().toString().length==1?'0'+date.getHours():date.getHours();
+  const minutes = date.getMinutes().toString().length==1?'0'+date.getMinutes():date.getMinutes();
+  const seconds = date.getSeconds().toString().length==1?'0'+date.getSeconds():date.getSeconds();
+  const milliseconds = date.getMilliseconds().toString().length==1?'0'+date.getMilliseconds():date.getMilliseconds();
+  const dateCreated = year+"-"+month+"-"+day+'T'+hours+':'+minutes+':'+seconds+'.'+milliseconds+'0000+00:00'
   const query = `INSERT INTO [dbo].[users]
-  ([USERNAME], [FIRSTNAME], [LASTNAME], [COUNTRY], [PASSWORD], [EMAIL] ,[IMAGE])
+  ([USERNAME], [FIRSTNAME], [LASTNAME], [COUNTRY], [PASSWORD], [EMAIL] ,[IMAGE],[updatedAt],[createdAt])
   VALUES
-  ('${username}', '${firstName}', '${lastName}', '${country}', '${password}', '${email}', '${image}')`;
+  ('${username}', '${firstName}', '${lastName}', '${country}', '${password}', '${email}', '${image}', '${dateCreated}', '${dateCreated}')`;
   await db.execQuery(query);
   return true;
 };

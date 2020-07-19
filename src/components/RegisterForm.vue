@@ -179,7 +179,7 @@ export default {
       }
       await axios.post("/api/auth/register",{
           username: this.username,
-          firstName: this.firstname,
+          firstName: this.firstName,
           lastName: this.lastName,
           country: this.country,
           password: crypto.SHA256(this.password).toString(),
@@ -204,9 +204,9 @@ export default {
       //   })
       // })
         .then(async response => {
-          if (response.ok) {
+          if (response.status==201||response.status==200) {
             alert("Registered Successfully !");
-              this.$router.push("/LoginPage");
+              this.$router.push("/login");
           } else {
             response.json().then(json => {
                 alert(response.status + ": " + json.message);
