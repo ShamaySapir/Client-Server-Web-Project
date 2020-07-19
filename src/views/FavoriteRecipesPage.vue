@@ -1,6 +1,10 @@
 <template>
   <div class="my-10">
-  <h1>This is the favorite recipes page</h1>
+  <br><h1>
+    {{recipes.length==0?
+    'Sorry you have no Favorite Recipes'
+    :'Your Favorite Recipes'}}
+  </h1>
     <PreviewList :recipes="recipes" />
   </div>
 </template>
@@ -13,7 +17,7 @@ export default {
   name: 'FavoriteRecipesPage',
   async mounted(){
     try {
-      const response = await axios.get("api/user/favorite");
+      const response = await axios.get("api/user/favorite")
       if(response.status!=200){
         console.log("rederecting")
         this.$router.push("/home"); 

@@ -1,13 +1,16 @@
 <template>
   <v-card raised class="mx-auto my-auto" max-width="700">
     <div align="center" class="primary mb-10 py-3 white--text">
-      <h1 class="primary">Register</h1>
+      <h1 class="primary"><v-icon large dark left>assignment</v-icon>Register</h1>
+      
     </div>
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex xs14>
         <v-card color="white">
-        <v-card-title>Public Infomation</v-card-title>
+        <v-card-title>
+          Public Infomation<v-icon light medium right>visibility</v-icon>
+        </v-card-title>
           <br>
           <v-text-field
             class="mx-5"
@@ -50,7 +53,9 @@
       </v-flex>
       <v-flex xs8>
         <v-card color="white">
-          <v-card-title>Private Infomation</v-card-title>
+          <v-card-title>          
+            Private Infomation<v-icon light medium right>visibility_off</v-icon>
+          </v-card-title>
           <v-text-field
             class="mx-5"
             outlined
@@ -97,7 +102,9 @@
       </v-flex>
       <v-flex xs4>
         <v-card dark color="primary">
-          <v-card-title>Profile</v-card-title>
+          <v-card-title>
+            <v-icon dark medium left>account_box</v-icon> Profile 
+          </v-card-title>
           <v-img :src="imageURL==''?'http://tech.taskrabbit.com/images/authors/missing_person.png':imageURL" aspect-ratio="1"></v-img>
           <v-card-text>
             <strong>{{username}}</strong> from {{country}}<br>{{email}}
@@ -107,8 +114,8 @@
     </v-layout>
   </v-container>
           <v-btn color="success" block @click="register">
-          Register
-          <v-icon right>mdi-check-circle</v-icon>
+            Register
+            <v-icon dark right>send</v-icon>
         </v-btn>
   </v-card>
 </template>

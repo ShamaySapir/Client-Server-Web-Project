@@ -156,15 +156,19 @@ const favoriteRecipeByUser = async (userId, recipeId) => {
 };
 // private functions
 const authenticate = async (username, password) => {
-  const userDB = await db.execQuery(
-    `select id, password from users where username = '${username}'`
-  );
-  if (userDB.length === 0) {
-    return null;
+  try{
+    const userDB = await db.execQuery(
+      `select id, password from users where username = '${username}'`
+    );
+    if (userDB.length === 0) {
+      return null;
+    }
+    const [{ password: dbPassword, id: userId }] = userDB;
+    const hashPassword = password;
+    return (hashPassword == dbPassword && userId) || null;
+  }catch(err){
+    return null
   }
-  const [{ password: dbPassword, id: userId }] = userDB;
-  const hashPassword = password;
-  return (hashPassword == dbPassword && userId) || null;
 };
 const isUsernameTaken = async (username) => {
   const users = await db.execQuery(

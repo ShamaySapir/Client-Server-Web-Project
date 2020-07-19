@@ -2,7 +2,7 @@
 <div>
     <v-card raised class="mx-auto my-auto" max-width="800">
     <div align="center" class="primary mb-10 py-3 white--text">
-      <h1 class="primary">Recipe Search</h1>
+      <h1 class="primary"><v-icon large dark left>search</v-icon>Recipe Search</h1>
     </div>
 
     <div align="center">
@@ -46,7 +46,7 @@
         </v-radio-group>
         <v-btn color="success" block @click="search">
           Search
-          <v-icon right>mdi-check-circle</v-icon>
+          <v-icon dark right>serach</v-icon>
         </v-btn>
       </v-form>
     </div>

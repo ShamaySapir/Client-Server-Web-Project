@@ -1,7 +1,7 @@
 <template>
   <v-card raised class="mx-auto my-auto" max-width="500">
     <div align="center" dark class="primary mb-10 py-3 white--text">
-      <h1>Login</h1>
+      <h1><v-icon large dark left>input</v-icon> Login</h1>
     </div>
     <div align="center">
       <v-form ref="form" v-model="valid">
@@ -27,7 +27,7 @@
 
         <v-btn color="success" block @click="login">
           Login
-          <v-icon right>mdi-check-circle</v-icon>
+          <v-icon dark right>send</v-icon>
         </v-btn>
       </v-form>
     </div>

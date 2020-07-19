@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
-    Welcome to home page of loged in users
+    <h1>Welcome to ReciPyjamot</h1>
     <v-layout row>
       <v-flex xs6 order-lg2>
-        <LoginForm :v-if="!loggedin" />
+        <LoginForm :v-if="!this.$root.isLoggedIn" />
         <previewList title="Your Latest Recipes!" :recipes="lastWatchedRecipes" />
       </v-flex>
       <v-flex xs6>
@@ -33,7 +33,9 @@ export default {
     randomRecipes:[ {"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}},
      {"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}},
       {"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}}],
-    lastWatchedRecipes:[],
+    lastWatchedRecipes:[ {"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}},
+     {"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}},
+      {"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}}],
     loggedin: true,
   }),
   components:{

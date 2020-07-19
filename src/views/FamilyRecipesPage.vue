@@ -1,6 +1,10 @@
 <template>
   <div class="my-10">
-    <h1>This is the family recipes page</h1>
+  <br><h1>
+    {{recipes.length==0?
+    'Sorry you have no Family Recipes'
+    :'Your Family Recipes'}}
+  </h1>
     <PreviewList :recipes="recipes" />
   </div>
 </template>

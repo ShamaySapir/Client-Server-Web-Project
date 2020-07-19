@@ -22,13 +22,33 @@ export default {
     const url = new URL(document.URL);
     const id = url.pathname.replace("/","");
     const reqString = "api/recipes/recipe/"+id;
-    const recipe = await axios.get(reqString).
-    catch((err)=>
-      console.log(err))
-    this.preview = recipe.data.preview;
-    this.instructions = recipe.data.instructions;
-    this.ingredients = recipe.data.ingredients;
-    this.servings = recipe.data.servings;
+    await axios.get(reqString).
+    then(res=>{
+      if(res.status!=200){
+        this.preview = {
+          readyInMinutes : 0,
+          image : "image",
+          viewed : false,
+          glutenFree : true,
+          id : 0,
+          vegan : false,
+          title : "NOT AVAILABLE",
+          favorite : false,
+          likes : 0
+        }
+        this.instructions = ["no availabe instructions"]
+        this.ingredients = ["no availabe ingredients"]
+        this.servings=0
+        return
+      }
+      else{
+        this.preview = res.data.preview;
+        this.instructions = res.data.instructions;
+        this.ingredients = res.data.ingredients;
+        this.servings = res.data.servings;
+      }
+    }).
+    catch((err)=>console.log(err))
   },
   components: {
     Recipe

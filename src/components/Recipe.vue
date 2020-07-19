@@ -37,7 +37,7 @@
                   {{preview.vegan?"Vegan":""}}</b><br>
                   </v-card-text>
                   <v-btn @click="favorite()">
-                    {{this.preview.favorite?`<3`:`</3`}}
+                    {{this.preview.favorite?`3`:`/3`}}
                   </v-btn>
                 </v-card>
               </v-flex>
