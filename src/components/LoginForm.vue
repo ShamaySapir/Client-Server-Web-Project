@@ -52,7 +52,7 @@ export default {
         alert("There's a problem");
         return;
       }
-      await axios.post("api/auth/Login", {
+      await axios.post("api/auth/login", {
           username: this.username,
           password: crypto.SHA256(this.password).toString()
       })
