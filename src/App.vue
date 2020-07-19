@@ -4,9 +4,15 @@
       <v-toolbar-title style="width: 150px" class="ml-0 pl-4">
         <span class="hidden-sm-and-down">ReciPyjamot</span>
       </v-toolbar-title>
-      <v-btn color="black" class="white--text" style="margin:10px" to="/home"><v-icon left>home</v-icon> Home</v-btn>
-      <v-btn color="black" class="white--text" style="margin:10px" to="/about"><v-icon left>info</v-icon> About</v-btn>
-      <v-btn color="black" class="white--text" style="margin:10px" to="/search"><v-icon left>search</v-icon> Search</v-btn>
+      <v-btn color="black" class="white--text" style="margin:10px" to="/home">
+        <v-icon left>home</v-icon>Home
+      </v-btn>
+      <v-btn color="black" class="white--text" style="margin:10px" to="/about">
+        <v-icon left>info</v-icon>About
+      </v-btn>
+      <v-btn color="black" class="white--text" style="margin:10px" to="/search">
+        <v-icon left>search</v-icon>Search
+      </v-btn>
 
       <v-spacer />
       <v-btn
@@ -15,24 +21,30 @@
         class="white--text"
         style="margin:10px;"
         to="/favorites"
-        v-if="$root.isLoggedIn"
-      ><v-icon left>favorite</v-icon> Favorites</v-btn>
+        v-if="isLoggedIn"
+      >
+        <v-icon left>favorite</v-icon>Favorites
+      </v-btn>
       <v-btn
         color="black"
         id="loginButton"
         class="white--text"
         style="margin:10px;"
         to="/myRecipes"
-        v-if="$root.isLoggedIn"
-      ><v-icon left>restaurant</v-icon> My Recipes</v-btn>
+        v-if="isLoggedIn"
+      >
+        <v-icon left>restaurant</v-icon>My Recipes
+      </v-btn>
       <v-btn
         color="black"
         id="loginButton"
         class="white--text"
         style="margin:10px;"
         to="/family"
-        v-if="$root.isLoggedIn"
-      ><v-icon left>group</v-icon> Family Recipes</v-btn>
+        v-if="isLoggedIn"
+      >
+        <v-icon left>group</v-icon>Family Recipes
+      </v-btn>
       <v-spacer />
 
       <v-btn
@@ -41,25 +53,32 @@
         class="white--text"
         style="margin:10px;"
         to="/login"
-        v-if="!$root.isLoggedIn"
-      ><v-icon left>input</v-icon> Login</v-btn>
+        v-if="!isLoggedIn"
+      >
+        <v-icon left>input</v-icon>Login
+      </v-btn>
       <v-btn
         v-on:click="logout"
+        :key="isLoggedIn"
         color="black"
         id="loginButton"
         class="white--text"
         style="margin:10px;"
-        v-if="$root.isLoggedIn"
+        v-if="isLoggedIn"
         to="/home"
-      ><v-icon left>logout</v-icon> Logout</v-btn>
+      >
+        <v-icon left>logout</v-icon>Logout
+      </v-btn>
       <v-btn
         color="black"
-        v-if="!$root.isLoggedIn"
+        v-if="!isLoggedIn"
         id="registerButton"
         class="white--text"
         style="margin:10px"
         to="/register"
-      ><v-icon left>assignment</v-icon> Register</v-btn>
+      >
+        <v-icon left>assignment</v-icon>Register
+      </v-btn>
       <v-btn icon large>
         <v-avatar size="32px" item>
           <v-img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Morbis" />
@@ -99,23 +118,33 @@ export default {
 
   mounted() {
     this.$root.baseURL = "http://localhost:3000";
-    document.getElementById('logoutButton').style.display = 'none';
   },
   props: {
     source: String
   },
 
-  data: () => ({
+  data: function() {
+    return {
     drawer: null,
     registerButton: null,
     logoutButton: null,
     items: menu,
     notificationCount:0,
-  }),
+    isLoggedIn: this.$root.isLoggedIn,
+    }
+  },
   methods: {
     logout: function() {
       this.$cookies.remove("session");
-      this.$router.push("/home");
+      this.isLoggedIn = false;
+      this.$root.isLoggedIn = false;
+      if (this.$router.currentRoute.path != "/home") {
+        this.$router.push("/home");
+      }
+      else {
+        this.$emit('render');
+      }
+      
     }
   }
 };

@@ -74,7 +74,6 @@ export default {
   name: "preview",
   props: ["recipe"],
   data: function() {
-    console.log(this.$props.recipe);
     return {
         favorited: this.$props.recipe.favorite,
       };

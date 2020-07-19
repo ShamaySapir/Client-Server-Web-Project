@@ -1,10 +1,10 @@
 <template>
-    <div class="preview">
+  <div class="preview">
     <v-flex flex-column>
-      <h1 align="center">{{recipes.length==0?"":title}}</h1>
-      <Preview v-for="recipe in recipes" :key="recipe" :recipe="recipe"></Preview>
+      <h1 align="center">{{recipes.length ==0 ? "" :title}}</h1>
+      <Preview v-for="recipe in recipes" :key="recipe.id" :recipe="recipe"></Preview>
     </v-flex>
-    </div>
+  </div>
 </template>
 <script>
 import Preview from "@/components/Preview.vue";

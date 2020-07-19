@@ -105,16 +105,18 @@ const router = new Router({
 
 router.beforeEach((to, _, next) => {
   const sessionCookie = router.app.$cookies.get("session");
-  if (!sessionCookie) {
-    router.app.isLoggedIn = false;
-  }
   if (sessionCookie && !router.app.isLoggedIn) {
     router.app.isLoggedIn = true;
   }
   if (!protectedRoutes.includes(to.name)) {
-    next();
+    if (to.path !== "/login") {
+      next();
+    } else {
+      next({ name: "Home Page" });
+    }
   } else {
     if (!sessionCookie) {
+      router.app.isLoggedIn = false;
       next({ name: "Login Page" });
     }
     next();

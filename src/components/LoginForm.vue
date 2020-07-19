@@ -1,7 +1,9 @@
 <template>
   <v-card raised class="mx-auto my-auto" max-width="500">
     <div align="center" dark class="primary mb-10 py-3 white--text">
-      <h1><v-icon large dark left>input</v-icon> Login</h1>
+      <h1>
+        <v-icon large dark left>input</v-icon>Login
+      </h1>
     </div>
     <div align="center">
       <v-form ref="form" v-model="valid">
@@ -39,12 +41,15 @@ import crypto from "crypto-js";
 import axios from "axios";
 export default {
   name: "LoginForm",
-  data: () => ({
+  data: function() {
+    return {
     valid: false,
     username: "",
     password: "",
     passwordVisable: false,
-  }),
+    // isLoggedIn: this.$root.isLoggedIn,
+    }
+  },
   methods: {
     async login() {
       if (!this.valid) {
@@ -58,7 +63,13 @@ export default {
         .then(response => {
           if (response.status==200) {
             this.$root.isLoggedIn = true;
-            this.$router.go(-1);
+            // this.isLoggedIn = true;
+            if (this.$router.currentRoute.path != "/home") {
+              this.$router.go(-1);
+            }
+            else {
+              this.$emit('render');
+            }
           } else {
             if (response.status == 401) {
               alert("The combination of username and password doesn't exist");
