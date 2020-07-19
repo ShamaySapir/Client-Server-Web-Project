@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     openRecipe() {
-      this.$router.push("/Recipe")
+      this.$router.push(`/${this.recipe.id}`)
     },
     async favorite() {
       try {

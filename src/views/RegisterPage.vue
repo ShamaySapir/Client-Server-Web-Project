@@ -21,8 +21,6 @@ export default {
         this.countries.push({text: country.name,value: country.name,})
 
       })
-
-
     if(!(this.$root.userToken == "" || this.$root.userToken == null)){// logged in so send him to home page
       this.$router.push("/home");
     }

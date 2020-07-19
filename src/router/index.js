@@ -83,16 +83,16 @@ const router = new Router({
       component: UserRecipesPage,
     },
     {
-      // set path for a recipe
-      path: "/recipe",
-      name: "RecipePage",
-      component: RecipePage,
-    },
-    {
       // set path for create a new recipe
       path: "/settings",
       name: "settings",
       component: SettingsPage,
+    },
+    {
+      // set path for a recipe
+      path: "/:id",
+      name: "RecipePage",
+      component: RecipePage,
     },
     {
       // set path for create a new recipe

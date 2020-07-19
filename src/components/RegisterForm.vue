@@ -54,7 +54,7 @@
           <v-text-field
             class="mx-5"
             outlined
-            v-model="name"
+            v-model="firstName"
             :prepend-icon="'mdi-pencil'"
             :rules="nameRules"
             label="First Name"
@@ -63,7 +63,7 @@
           <v-text-field
             class="mx-5"
             outlined
-            v-model="name"
+            v-model="lastName"
             :prepend-icon="'mdi-pencil'"
             :rules="nameRules"
             label="Last Name"
@@ -84,7 +84,7 @@
           <v-text-field
             class="mx-5"
             outlined
-            v-model="password"
+            v-model="confirmPassword"
             :prepend-icon="'mdi-lock'"
             :append-icon="passwordVisable ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="passwordVisable = !passwordVisable"
@@ -114,7 +114,9 @@
 </template>
 
 <script>
-import crypto from 'crypto-js'
+import axios from 'axios';
+const crypto = require("crypto-js");
+
 export default {
   name: "RegisterForm",
   props:{
@@ -122,12 +124,14 @@ export default {
   },
   data: () => ({
     valid: false,
-    username: "",
-    password: "",
-    country:"",
-    name: "",
-    email: "",
-    imageURL:'',
+    username: "BojackHorseman",
+    password: "a12345678A",
+    confirmPassword: "a12345678A",
+    country:"United States of America",
+    firstName: "Bojack",
+    lastName: "Horseman",
+    email: "borseman@gmail.com",
+    imageURL:'https://tse1.mm.bing.net/th?id=OIP.EkbXJQEr85A1vYYtRGqqPgHaEJ&pid=Api&rs=1&c=1&qlt=95&w=182&h=102',
     usernameRules: [
       v =>
         !v ||
@@ -160,31 +164,45 @@ export default {
     passwordVisable: false
   }),
   methods: {
-    save(date) {
-      this.$refs.menu.save(date);
-    },
-    register() {
-      if(this.username == null || this.password == null || this.name == null || this.email == null) {
+    async register() {
+      if(
+        this.password==null||
+        this.confirmPassword==null||
+        this.country==null||
+        this.firstName==null||
+        this.lastName==null||
+        this.email==null||
+        this.imageURL==null
+      ) {
         alert("Please fill every cell before registering");
         return;
       }
-      if(!this.valid) {
-        alert("You have errors in the form");
-        return;
-      }
-      fetch(this.$root.baseURL + "/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+      await axios.post("/api/auth/register",{
           username: this.username,
-          password: crypto.SHA256(this.password).toString(),
+          firstName: this.firstname,
+          lastName: this.lastName,
           country: this.country,
-          name: this.name,
-          email: this.email
+          password: crypto.SHA256(this.password).toString(),
+          confirmationPassword: crypto.SHA256(this.confirmPassword).toString(),
+          email: this.email,
+          image: this.imageURL,
         })
-      })
+      // fetch(this.$root.baseURL + "/api/register", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({
+      //     username: this.username,
+      //     firstName: this.firstname,
+      //     lastName: this.lastName,
+      //     country: this.country,
+      //     password: crypto.SHA256(this.password).toString(),
+      //     confirmationPassword: crypto.SHA256(this.confirmPassword).toString(),
+      //     email: this.email,
+      //     image: this.imageURL,
+      //   })
+      // })
         .then(async response => {
           if (response.ok) {
             alert("Registered Successfully !");

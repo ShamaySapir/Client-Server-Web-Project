@@ -28,13 +28,17 @@
             <v-layout row wrap>
               <v-flex d-flex xs12>
                 <v-card color="secondary" dark>
-                  <v-card-title >{{preview.favorite?"One of your favorites!":""}}<br></v-card-title>
+                  <v-card-title v-if="preview.favorite">One of your favorites!<br></v-card-title>
                   <v-card-text>
+                  {{preview.likes}} users like this recipe!<br>
                   Servings: {{ servings }}<br>
                   Time to make: {{ preview.readyInMinutes }} minutes<br>
-                  {{preview.gluten_free?"Gluten Free":""}}<br>
-                  {{preview.vegan?"Vegan":""}}<br>
+                  <b>{{preview.gluten_free?"Gluten Free":""}}<br>
+                  {{preview.vegan?"Vegan":""}}</b><br>
                   </v-card-text>
+                  <v-btn @click="favorite()">
+                    {{this.preview.favorite?`<3`:`</3`}}
+                  </v-btn>
                 </v-card>
               </v-flex>
             </v-layout>
@@ -79,14 +83,39 @@
 //     "value" : 0.8008281904610115
 //   } ]
 // }
+import axios from 'axios';
 export default {
   name: "Recipe",
   data: ()=>({
-    lorem:"hi",
   }),
   props:[
     "preview","instructions","servings","ingredients"
   ],
+  methods:{
+    async favorite() {
+      try {
+        let response = null;
+        if (this.preview.favorite) {
+          response = await axios.post("api/user/unFavorite", {
+            recipeId: this.preview.id
+          });
+          if (response.status == 200) {
+            this.preview.favorite = false;
+          }
+        }
+        else {
+          response = await axios.post("api/user/favorite", {
+            recipeId: this.preview.id
+          })
+          if (response.status == 200) {
+            this.preview.favorite= true;
+          }
+        }
+      } catch (error) {
+          console.log(error);
+        }
+      }
+  }
 };
 </script>
 

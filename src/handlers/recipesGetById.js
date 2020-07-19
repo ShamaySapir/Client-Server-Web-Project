@@ -7,6 +7,9 @@ const {
 } = require("../shared");
 
 const getRecipeHandler = async (req, res, next) => {
+  if(req.params.id==null||req.params.id==""){
+    res.status(403).send("bad request no ID sent");
+  }
   try {
     const [infoAPI, ingredientsAPI, instructionsAPI] = await Promise.all([
       getRecipeInfoByID(req.params.id), // get the recipe info by given id,
@@ -29,8 +32,8 @@ const getRecipeHandler = async (req, res, next) => {
       likes: infoAPI.data.aggregateLikes,
       vegan: infoAPI.data.vegan, // TODO change the word 'vegen' to 'vegan' in the API
       gluten_free: infoAPI.data.glutenFree,
-      viewed: isViewed(req.session.user_id, infoAPI.data.id), // TODO get userId
-      favorite: isFavorite(req.session.user_id, infoAPI.data.id), // TODO get userId
+      viewed: await isViewed(req.session.user_id, infoAPI.data.id), // TODO get userId
+      favorite: await isFavorite(req.session.user_id, infoAPI.data.id), // TODO get userId
     };
     const ingredients = [];
     ingredientsAPI.data.ingredients.forEach((ingredient) => {

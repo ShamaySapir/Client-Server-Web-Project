@@ -44,7 +44,6 @@ export default {
     username: "",
     password: "",
     passwordVisable: false,
-    recipes:[]
   }),
   methods: {
     async login() {
@@ -52,9 +51,7 @@ export default {
         alert("There's a problem");
         return;
       }
-      // eslint-disable-next-line no-unused-vars
-    
-await axios.post("api/auth/Login", {
+      await axios.post("api/auth/login", {
           username: this.username,
           password: crypto.SHA256(this.password).toString()
       })
