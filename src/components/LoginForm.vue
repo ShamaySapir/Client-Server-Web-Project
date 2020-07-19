@@ -39,7 +39,7 @@
 <script>
 import crypto from "crypto-js";
 import axios from "axios";
-import {setLoggedIn} from '../views/store'
+import {setLoggedIn, setUserName} from '../views/store'
 export default {
   name: "LoginForm",
   data: function() {
@@ -63,6 +63,7 @@ export default {
         .then(response => {
           if (response.status==200) {
             setLoggedIn()
+            setUserName(this.username);
             if (this.$router.currentRoute.path != "/home") {
               this.$router.go(-1);
             }

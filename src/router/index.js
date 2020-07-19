@@ -12,7 +12,7 @@ import UserRecipesPage from "../views/UserRecipesPage.vue";
 import FavoriteRecipesPage from "../views/FavoriteRecipesPage.vue";
 import FamilyRecipesPage from "../views/FamilyRecipesPage.vue";
 import RecipePage from "../views/RecipePage.vue";
-import store, { setLoggedIn, setLoggedOut } from "../views/store";
+import store, { setLoggedIn, setLoggedOut, setUserName } from "../views/store";
 
 Vue.use(Router);
 const protectedRoutes = [
@@ -107,6 +107,7 @@ router.beforeEach((to, _, next) => {
   } else {
     if (!sessionCookie) {
       setLoggedOut();
+      setUserName(Guest);
       next({ name: "Login Page" });
     }
     next();

@@ -110,10 +110,6 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  background-color: mediumblue;
-  opacity: 0.5;
-}
 .click:hover {
   cursor: pointer;
 }
@@ -122,5 +118,8 @@ export default {
 }
 .likeImg {
   margin-top: -5px;
+}
+.mx-auto {
+  margin: 10px;
 }
 </style>

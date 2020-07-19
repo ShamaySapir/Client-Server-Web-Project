@@ -11,9 +11,7 @@ const recipesSearchHandler = async (req, res, next) => {
   try {
     const db = req.app.db;
     const { id, query, cuisine, diet, intolerances, number } = req.body;
-    // TODO: Add this search object if a user is connected - check a cookie
-    // eslint-disable-next-line no-constant-condition
-    if (true) {
+    if (req.session.user_id) {
       const searchObj = {
         id,
         query,
@@ -22,7 +20,11 @@ const recipesSearchHandler = async (req, res, next) => {
         intolerances,
         number,
       };
-      userAddLastSearch("1", _.pickBy(searchObj, _.identity), db);
+      userAddLastSearch(
+        req.session.user_id,
+        _.pickBy(searchObj, _.identity),
+        db
+      );
     }
     const searchResponse = await axios.get(`${apiDomain}/recipes/search`, {
       params: {
