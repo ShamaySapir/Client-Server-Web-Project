@@ -1,9 +1,7 @@
 <template>
   <v-card raised class="mx-auto my-auto" max-width="500">
     <div align="center" dark class="primary mb-10 py-3 white--text">
-      <h1>
-        <v-icon large dark left>input</v-icon>Login
-      </h1>
+      <h1><v-icon large dark left>input</v-icon>Login</h1>
     </div>
     <div align="center">
       <v-form ref="form" v-model="valid">
@@ -39,16 +37,16 @@
 <script>
 import crypto from "crypto-js";
 import axios from "axios";
-import {setLoggedIn, setUserName} from '../views/store'
+import { setLoggedIn, setUserName } from "../views/store";
 export default {
   name: "LoginForm",
-  data: function() {
+  data: function () {
     return {
-    valid: false,
-    username: "",
-    password: "",
-    passwordVisable: false,
-    }
+      valid: false,
+      username: "",
+      password: "",
+      passwordVisable: false,
+    };
   },
   methods: {
     async login() {
@@ -56,36 +54,35 @@ export default {
         alert("There's a problem");
         return;
       }
-      await axios.post("api/auth/login", {
+      await axios
+        .post("api/auth/login", {
           username: this.username,
-          password: crypto.SHA256(this.password).toString()
-      })
-        .then(response => {
-          if (response.status==200) {
-            setLoggedIn()
+          password: crypto.SHA256(this.password).toString(),
+        })
+        .then((response) => {
+          if (response.status == 200) {
+            setLoggedIn();
+            this.$cookies.set("username", this.username);
             setUserName(this.username);
             if (this.$router.currentRoute.path != "/home") {
               this.$router.go(-1);
             }
-            // else {
-            //   this.$emit('render');
-            // }
           } else {
             if (response.status == 401) {
               alert("The combination of username and password doesn't exist");
             } else {
-              response.json().then(json => {
+              response.json().then((json) => {
                 alert(response.status + ": " + json.message);
               });
             }
           }
         })
-        .catch(err => {console.error(err)});
+        .catch((err) => {
+          console.error(err);
+        });
     },
   },
 };
-
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
