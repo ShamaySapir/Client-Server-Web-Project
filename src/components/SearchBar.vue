@@ -64,6 +64,12 @@
       :title="searchResults.length != 0 ? previewTitle : ''"
       :recipes="searchResults"
     />
+    <div v-if="searchResults.length == 0" align="center" style="margin:10px">
+      <h1> sorry we didnt find anything </h1>
+      <v-img height="500" width="500"
+      src="https://cdn.pixabay.com/photo/2015/11/03/09/09/magnifying-glass-1020142_960_720.jpg">
+      </v-img>
+    </div>
   </div>
 </template>
 <script>
@@ -112,6 +118,7 @@ export default {
     
   },
   data: () => ({
+    imageSrc: 'https://cdn.pixabay.com/photo/2015/11/03/09/09/magnifying-glass-1020142_960_720.jpg',
     query: "",
     number: 5,
     cuisine: "",

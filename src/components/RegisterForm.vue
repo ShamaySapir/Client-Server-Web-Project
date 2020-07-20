@@ -184,7 +184,7 @@ export default {
         this.email==null||
         this.imageURL==null
       ) {
-        alert("Please fill every cell before registering");
+        this.message ="Please fill every cell before registering";
         return;
       }
       await axios.post("/api/auth/register",{
@@ -215,7 +215,7 @@ export default {
       // })
         .then(async response => {
           if (response.status==201||response.status==200) {
-            alert("Registered Successfully !");
+            this.message = "Registered Successfully!";
               this.$router.push("/login");
           } else {
             this.message = "There is a problem please try again";
