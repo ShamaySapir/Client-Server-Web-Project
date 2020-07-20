@@ -74,7 +74,10 @@ export default {
     };
   },
   methods: {
-    openRecipe() {
+    async openRecipe() {
+      await axios.post("api/user/viewed", {
+        recipeId: this.$props.recipe.id,
+      });
       this.$router.push(`/${this.recipe.id}`);
     },
     async favorite() {

@@ -34,9 +34,10 @@ import axios from "axios";
 export default {
   name: "HomePage",
   async mounted() {
-    //     this.getRandomRecipes();
-    //     if(store.isLoggedIn)
-    //      this.getLatestRecipes();
+    this.getRandomRecipes();
+    if (store.isLoggedIn) {
+      this.getLatestRecipes();
+    }
   },
   methods: {
     async getRandomRecipes() {

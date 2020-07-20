@@ -4,7 +4,7 @@ const userLastWatchedRecipesHandler = async (req, res, next) => {
     const db = req.app.db;
     const id = req.session.user_id;
     let lastWatched = await db.viewed.findAll({
-      where: { userId: id },
+      where: { userId: id, seen: true },
       order: [["updatedAt", "DESC"]],
       raw: true,
       attributes: ["recipeId"],
