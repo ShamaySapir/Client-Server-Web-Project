@@ -99,8 +99,11 @@ const router = new Router({
 
 router.beforeEach((to, _, next) => {
   const sessionCookie = router.app.$cookies.get("session");
+  const userCookie = router.app.$cookies.get("username");
+
   if (sessionCookie && !store.isLoggedIn) {
     setLoggedIn();
+    setUserName(userCookie);
   }
   if (!protectedRoutes.includes(to.name)) {
     next();
