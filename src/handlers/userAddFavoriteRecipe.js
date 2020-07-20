@@ -31,7 +31,6 @@ const userAddFavoriteRecipesHandler = async (req, res, next) => {
     // return value
     res.status(200).send();
   } catch (err) {
-    console.log(err);
     res.status(400).send("bad request");
   }
 };

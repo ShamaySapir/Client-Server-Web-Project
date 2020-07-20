@@ -106,9 +106,6 @@ export default {
   data: () => ({}),
   props: ["preview", "instructions", "servings", "ingredients", "family"],
   methods: {
-    async mounted() {
-      console.log("hi");
-    },
     async favorite() {
       try {
         let response = null;

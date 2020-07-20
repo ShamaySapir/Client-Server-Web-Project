@@ -86,7 +86,6 @@ export default {
         diet:this.diet,
         intolerance:this.intolerance,
       }).then(res => this.searchResults = res.data)
-      console.log(this.searchResults)
     },
     time: function () {
       // eslint-disable-next-line require-jsdoc

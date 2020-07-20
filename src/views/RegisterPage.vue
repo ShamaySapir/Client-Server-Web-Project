@@ -17,7 +17,6 @@ export default {
     const countryEntries = await axios.get("https://restcountries.eu/rest/v2/all");
     countryEntries.data.forEach(
       (country) => {
-        console.log(country.name)
         this.countries.push({text: country.name,value: country.name,})
 
       })

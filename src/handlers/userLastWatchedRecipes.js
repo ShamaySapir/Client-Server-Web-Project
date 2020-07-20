@@ -18,7 +18,6 @@ const userLastWatchedRecipesHandler = async (req, res, next) => {
     // return value
     res.status(200).json(lastWatchedRecipes);
   } catch (err) {
-    console.log(err);
     res.status(400).send("bad request");
   }
 };

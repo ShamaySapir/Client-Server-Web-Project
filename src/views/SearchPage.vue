@@ -43,8 +43,7 @@ data: ()=>({
         await axios.post("api/recipes/search",params)
           .then(results => {
             // results.data.forEach(recipe => this.lastSearchResults.push(recipe))
-            this.lastSearchResults = results.data
-            console.log(this.lastSearchResults)})
+            this.lastSearchResults = results.data})
         }).catch(error => {
         console.log(error)
         this.lastSearchResults=[]})

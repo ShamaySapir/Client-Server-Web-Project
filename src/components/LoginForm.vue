@@ -51,7 +51,6 @@ export default {
   methods: {
     async getRacdomRecipes(){
       const response = await axios.get("api/user/family");
-      console.log(response);
     },
     async login() {
       if (!this.valid) {
