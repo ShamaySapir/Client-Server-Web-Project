@@ -182,7 +182,7 @@
     <div class="app-desc">This is a simple API</div>
     <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
     <div class="app-desc">Contact Info: <a href="you@your-company.com">you@your-company.com</a></div>
-    <div class="app-desc">Version: 1.0.1</div>
+    <div class="app-desc">Version: 1.0.0</div>
     <div class="app-desc">BasePath:/HaimReyes/APjamot/1.0.0</div>
     <div class="license-info">Apache 2.0</div>
     <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
@@ -201,7 +201,6 @@
   <h4><a href="#Db">Db</a></h4>
   <ul>
   <li><a href="#dbRecipeIdGet"><code><span class="http-method">get</span> /db/recipe/{id}</code></a></li>
-  <li><a href="#dbUserUsernameGet"><code><span class="http-method">get</span> /db/user/{username}</code></a></li>
   </ul>
   <h4><a href="#Recipes">Recipes</a></h4>
   <ul>
@@ -211,11 +210,15 @@
   </ul>
   <h4><a href="#User">User</a></h4>
   <ul>
-  <li><a href="#userUsernameFamilyGet"><code><span class="http-method">get</span> /user/{username}/family</code></a></li>
-  <li><a href="#userUsernameFavoriteGet"><code><span class="http-method">get</span> /user/{username}/favorite</code></a></li>
-  <li><a href="#userUsernameGet"><code><span class="http-method">get</span> /user/{username}</code></a></li>
-  <li><a href="#userUsernameLastViewedGet"><code><span class="http-method">get</span> /user/{username}/lastViewed</code></a></li>
-  <li><a href="#userUsernameSearchGet"><code><span class="http-method">get</span> /user/{username}/search</code></a></li>
+  <li><a href="#userDeleteSearchPost"><code><span class="http-method">post</span> /user/deleteSearch</code></a></li>
+  <li><a href="#userFamilyGet"><code><span class="http-method">get</span> /user/family</code></a></li>
+  <li><a href="#userFavoriteGet"><code><span class="http-method">get</span> /user/favorite</code></a></li>
+  <li><a href="#userFavoritePost"><code><span class="http-method">post</span> /user/favorite</code></a></li>
+  <li><a href="#userGet"><code><span class="http-method">get</span> /user/</code></a></li>
+  <li><a href="#userLastWatchedGet"><code><span class="http-method">get</span> /user/lastWatched</code></a></li>
+  <li><a href="#userSearchGet"><code><span class="http-method">get</span> /user/search</code></a></li>
+  <li><a href="#userUnfavoritePost"><code><span class="http-method">post</span> /user/unfavorite</code></a></li>
+  <li><a href="#userViewedPost"><code><span class="http-method">post</span> /user/viewed</code></a></li>
   </ul>
 
   <h1><a name="Authentication">Authentication</a></h1>
@@ -367,76 +370,6 @@
     <h4 class="field-label">200</h4>
     gets a recipe
         <a href="#recipe">recipe</a>
-    <h4 class="field-label">400</h4>
-    bad request
-        <a href="#"></a>
-    <h4 class="field-label">404</h4>
-    not found
-        <a href="#"></a>
-  </div> <!-- method -->
-  <hr/>
-  <div class="method"><a name="dbUserUsernameGet"></a>
-    <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /db/user/{username}</code></pre></div>
-    <div class="method-summary">user info (<span class="nickname">dbUserUsernameGet</span>)</div>
-    <div class="method-notes">will retrive a user&#x27;s info from the database</div>
-
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">username (required)</div>
-      
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
-
-
-
-
-
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      <a href="#user_info">user_info</a>
-      
-    </div>
-
-    <!--Todo: process Response Object and its headers, schema, examples -->
-
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>{
-  "firstName" : "John",
-  "lastName" : "Doe",
-  "country" : "israel",
-  "image" : "https://static.xx.fbcdn.net/rsrc.php/v3/yz/r/mdFUMX-w0Fu",
-  "id" : 8,
-  "lastSearch" : [ {
-    "number" : 5,
-    "query" : "pasta",
-    "intolerances" : "peanuts",
-    "cuisine" : "italian",
-    "diet" : "vegan"
-  }, {
-    "number" : 5,
-    "query" : "pasta",
-    "intolerances" : "peanuts",
-    "cuisine" : "italian",
-    "diet" : "vegan"
-  } ],
-  "email" : "JohnDoe43@gmail.com",
-  "username" : "JohnDoe43"
-}</code></pre>
-
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/ymal</code></li>
-    </ul>
-
-    <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">200</h4>
-    gets user info
-        <a href="#user_info">user_info</a>
     <h4 class="field-label">400</h4>
     bad request
         <a href="#"></a>
@@ -667,18 +600,43 @@
   </div> <!-- method -->
   <hr/>
   <h1><a name="User">User</a></h1>
-  <div class="method"><a name="userUsernameFamilyGet"></a>
+  <div class="method"><a name="userDeleteSearchPost"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/{username}/family</code></pre></div>
-    <div class="method-summary">family recipes (<span class="nickname">userUsernameFamilyGet</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/deleteSearch</code></pre></div>
+    <div class="method-summary">delete the last search of a user (<span class="nickname">userDeleteSearchPost</span>)</div>
+    <div class="method-notes">will remove a from the user&#x27;s favorites</div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    last search deleted
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    bad request
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="userFamilyGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/family</code></pre></div>
+    <div class="method-summary">family recipes (<span class="nickname">userFamilyGet</span>)</div>
     <div class="method-notes">will retrive all of the user&#x27;s family recipes</div>
 
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">username (required)</div>
-      
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
 
 
 
@@ -736,18 +694,13 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="userUsernameFavoriteGet"></a>
+  <div class="method"><a name="userFavoriteGet"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/{username}/favorite</code></pre></div>
-    <div class="method-summary">favorite recipes (<span class="nickname">userUsernameFavoriteGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/favorite</code></pre></div>
+    <div class="method-summary">favorite recipes (<span class="nickname">userFavoriteGet</span>)</div>
     <div class="method-notes">will retrive the recipes in the user&#x27;s favorites list</div>
 
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">username (required)</div>
-      
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
 
 
 
@@ -805,18 +758,54 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="userUsernameGet"></a>
+  <div class="method"><a name="userFavoritePost"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/{username}</code></pre></div>
-    <div class="method-summary">user&#x27;s recipes (<span class="nickname">userUsernameGet</span>)</div>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/favorite</code></pre></div>
+    <div class="method-summary">add recipe to favorite (<span class="nickname">userFavoritePost</span>)</div>
+    <div class="method-notes">will set a recipe the user&#x27;s favorites</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/yaml</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#body">body</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    retrives favorite recipes
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    bad request
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="userGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/</code></pre></div>
+    <div class="method-summary">user&#x27;s recipes (<span class="nickname">userGet</span>)</div>
     <div class="method-notes">will retrive the recipes created by the user</div>
 
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">username (required)</div>
-      
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
 
 
 
@@ -874,18 +863,13 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="userUsernameLastViewedGet"></a>
+  <div class="method"><a name="userLastWatchedGet"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/{username}/lastViewed</code></pre></div>
-    <div class="method-summary">recipe last viewed (<span class="nickname">userUsernameLastViewedGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/lastWatched</code></pre></div>
+    <div class="method-summary">recipe last viewed (<span class="nickname">userLastWatchedGet</span>)</div>
     <div class="method-notes">will repieat the last search to get the results</div>
 
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">username (required)</div>
-      
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
 
 
 
@@ -943,18 +927,13 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
-  <div class="method"><a name="userUsernameSearchGet"></a>
+  <div class="method"><a name="userSearchGet"></a>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/{username}/search</code></pre></div>
-    <div class="method-summary">last search results (<span class="nickname">userUsernameSearchGet</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/search</code></pre></div>
+    <div class="method-summary">last search results (<span class="nickname">userSearchGet</span>)</div>
     <div class="method-notes">will retrive the last search results</div>
 
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">username (required)</div>
-      
-            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
 
 
 
@@ -1012,12 +991,97 @@
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <div class="method"><a name="userUnfavoritePost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/unfavorite</code></pre></div>
+    <div class="method-summary">remove recipe from favorites (<span class="nickname">userUnfavoritePost</span>)</div>
+    <div class="method-notes">will remove a from the user&#x27;s favorites</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/yaml</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#body_1">body_1</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    recipe removed from the user&#x27;s favorites
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    bad request
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="userViewedPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/viewed</code></pre></div>
+    <div class="method-summary">set a recipe as viewed by user (<span class="nickname">userViewedPost</span>)</div>
+    <div class="method-notes">will set a recipe as viewed by the user</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/yaml</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#body_2">body_2</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    recipe as viewed
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    bad request
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
 
   <h2><a name="__Models">Models</a></h2>
   [ Jump to <a href="#__Methods">Methods</a> ]
 
   <h3>Table of Contents</h3>
   <ol>
+    <li><a href="#body"><code>body</code></a></li>
+    <li><a href="#body_1"><code>body_1</code></a></li>
+    <li><a href="#body_2"><code>body_2</code></a></li>
     <li><a href="#ingredient"><code>ingredient</code></a></li>
     <li><a href="#login_body"><code>login_body</code></a></li>
     <li><a href="#preview_recipe"><code>preview_recipe</code></a></li>
@@ -1027,6 +1091,30 @@
     <li><a href="#user_info"><code>user_info</code></a></li>
   </ol>
 
+  <div class="model">
+    <h3><a name="body"><code>body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">recipeId (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 3</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="body_1"><code>body_1</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">recipeId (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 3</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="body_2"><code>body_2</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">recipeId (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 3</span></div>
+    </div>  <!-- field-items -->
+  </div>
   <div class="model">
     <h3><a name="ingredient"><code>ingredient</code></a> <a class="up" href="#__Models">Up</a></h3>
     
