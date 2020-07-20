@@ -36,7 +36,7 @@
                     <b>{{preview.gluten_free?"Gluten Free":""}}<br>
                     {{preview.vegan?"Vegan":""}}</b><br>
                   </v-card-text>
-                  <v-card-title v-if="family&family.who!='0'">This is a Family Recipe!<br>
+                  <v-card-title v-if="family.who!='0'">This is a Family Recipe!<br>
                     {{family.who}} used to make it {{family.when}}</v-card-title>
                   <v-btn @click="favorite()">
                     {{this.preview.favorite?`unFavorite`:`Favorite`}}
