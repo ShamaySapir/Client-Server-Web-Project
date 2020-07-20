@@ -17,8 +17,6 @@ const validateLogin = (req, res, next) => {
 // });
 mainRouter.use("/recipes", recipesRouter);
 mainRouter.use("/auth", authRouter);
-mainRouter.use(validateLogin)
-mainRouter.use("/user", userRouter); // TODO: assure cookie session for user first
 mainRouter.use("/db", dbRouter);
 mainRouter.use(validateLogin);
 mainRouter.use("/user", userRouter); // TODO: assure cookie session for user first

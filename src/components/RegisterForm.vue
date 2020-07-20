@@ -145,8 +145,8 @@ export default {
     usernameRules: [
       v =>
         !v ||
-        /[a-zA-Z][a-zA-Z0-9_.@]{3,}/.test(v) ||
-        "Username must be alphanumeric, at least 4 letters and start with a letter"
+        /[a-zA-Z][a-zA-Z]{2,8}/.test(v) ||
+        "Username must be alphanumeric, at least 3 letters and no more then 8 letters"
     ],
     passwordRules: [
       v =>
@@ -154,8 +154,8 @@ export default {
         (/(.*[a-z].*)/.test(v) &&
           /(.*[A-Z].*)/.test(v) &&
           /(.*[0-9].*)/.test(v) &&
-          /(.{8,20})/.test(v)) ||
-        "Password must contain: numbers, 8-20 letters long and big and small letters"
+          /(.{5,11})/.test(v)) ||
+        "Password must contain: numbers, 5-10 letters with a special character"
     ],
     nameRules: [
       v =>
@@ -197,24 +197,16 @@ export default {
           email: this.email,
           image: this.imageURL,
         })
-      // fetch(this.$root.baseURL + "/api/register", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: JSON.stringify({
-      //     username: this.username,
-      //     firstName: this.firstname,
-      //     lastName: this.lastName,
-      //     country: this.country,
-      //     password: crypto.SHA256(this.password).toString(),
-      //     confirmationPassword: crypto.SHA256(this.confirmPassword).toString(),
-      //     email: this.email,
-      //     image: this.imageURL,
-      //   })
-      // })
         .then(async response => {
           if (response.status==201||response.status==200) {
+            this.username= "",
+            this.password= "",
+            this.confirmPassword= "",
+            this.country="",
+            this.firstName= "",
+            this.lastName= "",
+            this.email= "",
+            this.imageURL='https://tse1.mm.bing.net/th?id=OIP.EkbXJQEr85A1vYYtRGqqPgHaEJ&pid=Api&rs=1&c=1&qlt=95&w=182&h=102',
             this.message = "Registered Successfully!";
               this.$router.push("/login");
           } else {

@@ -7,7 +7,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.1
+  version: 1.0.0
 servers:
 - url: https://virtserver.swaggerhub.com/HaimReyes/APjamot/1.0.0
   description: SwaggerHub API Auto Mocking
@@ -122,21 +122,12 @@ paths:
           description: bad request
         "404":
           description: not found
-  /user/{username}/lastViewed:
+  /user/lastWatched:
     get:
       tags:
       - user
       summary: recipe last viewed
       description: will repieat the last search to get the results
-      parameters:
-      - name: username
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          example: JohnDoe43
       responses:
         "200":
           description: retrives lastViewed recipes
@@ -150,21 +141,12 @@ paths:
           description: bad request
         "404":
           description: not found
-  /user/{username}/favorite:
+  /user/favorite:
     get:
       tags:
       - user
       summary: favorite recipes
       description: will retrive the recipes in the user's favorites list
-      parameters:
-      - name: username
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          example: JohnDoe43
       responses:
         "200":
           description: retrives favorite recipes
@@ -178,21 +160,29 @@ paths:
           description: bad request
         "404":
           description: not found
-  /user/{username}/family:
+    post:
+      tags:
+      - user
+      summary: add recipe to favorite
+      description: will set a recipe the user's favorites
+      requestBody:
+        content:
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/body'
+      responses:
+        "200":
+          description: retrives favorite recipes
+        "400":
+          description: bad request
+        "404":
+          description: not found
+  /user/family:
     get:
       tags:
       - user
       summary: family recipes
       description: will retrive all of the user's family recipes
-      parameters:
-      - name: username
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          example: JohnDoe43
       responses:
         "200":
           description: retrives family recipes
@@ -206,21 +196,12 @@ paths:
           description: bad request
         "404":
           description: not found
-  /user/{username}/search:
+  /user/search:
     get:
       tags:
       - user
       summary: last search results
       description: will retrive the last search results
-      parameters:
-      - name: username
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          example: JohnDoe43
       responses:
         "200":
           description: retrives recipes
@@ -234,21 +215,61 @@ paths:
           description: bad request
         "404":
           description: not found
-  /user/{username}:
+  /user/unfavorite:
+    post:
+      tags:
+      - user
+      summary: remove recipe from favorites
+      description: will remove a from the user's favorites
+      requestBody:
+        content:
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/body_1'
+      responses:
+        "200":
+          description: recipe removed from the user's favorites
+        "400":
+          description: bad request
+        "404":
+          description: not found
+  /user/deleteSearch:
+    post:
+      tags:
+      - user
+      summary: delete the last search of a user
+      description: will remove a from the user's favorites
+      responses:
+        "200":
+          description: last search deleted
+        "400":
+          description: bad request
+        "404":
+          description: not found
+  /user/viewed:
+    post:
+      tags:
+      - user
+      summary: set a recipe as viewed by user
+      description: will set a recipe as viewed by the user
+      requestBody:
+        content:
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/body_2'
+      responses:
+        "200":
+          description: recipe as viewed
+        "400":
+          description: bad request
+        "404":
+          description: not found
+  /user/:
     get:
       tags:
       - user
       summary: user's recipes
       description: will retrive the recipes created by the user
-      parameters:
-      - name: username
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          example: JohnDoe43
       responses:
         "200":
           description: retrives username info
@@ -322,32 +343,6 @@ paths:
             application/ymal:
               schema:
                 $ref: '#/components/schemas/recipe'
-        "400":
-          description: bad request
-        "404":
-          description: not found
-  /db/user/{username}:
-    get:
-      tags:
-      - db
-      summary: user info
-      description: will retrive a user's info from the database
-      parameters:
-      - name: username
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          example: "36472"
-      responses:
-        "200":
-          description: gets user info
-          content:
-            application/ymal:
-              schema:
-                $ref: '#/components/schemas/user_info'
         "400":
           description: bad request
         "404":
@@ -499,3 +494,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/search_filters'
+    body:
+      type: object
+      properties:
+        recipeId:
+          type: integer
+          example: 3
+    body_1:
+      type: object
+      properties:
+        recipeId:
+          type: integer
+          example: 3
+    body_2:
+      type: object
+      properties:
+        recipeId:
+          type: integer
+          example: 3
