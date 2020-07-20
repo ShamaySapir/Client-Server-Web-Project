@@ -71,7 +71,6 @@
         </v-form>
       </div>
     </v-card>
-    <!-- Should add v-if="searchResults.length != 0" To the div -->
     <PreviewList :recipes="searchResults" />
     <div v-if="noresults" align="center" style="margin: 10px;">
       <h1>Sorry we didnt find any results matching this search</h1>
@@ -105,12 +104,12 @@ export default {
           diet: this.diet,
           intolerance: this.intolerance,
         })
-        .then((response) => {
-          if (response.status == 200) {
-            this.searchResults = response.data;
+        .then((results) => {
+          this.searchResults = results.data;
+
+          if (results.data.length > 0) {
             this.noresults = false;
           } else {
-            this.searchResults = [];
             this.noresults = true;
           }
         });
