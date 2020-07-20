@@ -2,7 +2,9 @@
   <v-card raised class="mx-auto my-auto" max-width="700">
     <div align="center" class="primary mb-10 py-3 white--text">
       <h1 class="primary"><v-icon large dark left>assignment</v-icon>Register</h1>
-      
+      <div class="red--text">
+      {{message}}
+      </div>
     </div>
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
@@ -130,6 +132,7 @@ export default {
     countries:[],
   },
   data: () => ({
+    message:"",
     valid: false,
     username: "BojackHorseman",
     password: "a12345678A",
@@ -168,7 +171,7 @@ export default {
     ],
     date: null,
     menu: false,
-    passwordVisable: false
+    passwordVisable: false,
   }),
   methods: {
     async register() {
@@ -181,7 +184,7 @@ export default {
         this.email==null||
         this.imageURL==null
       ) {
-        alert("Please fill every cell before registering");
+        this.message ="Please fill every cell before registering";
         return;
       }
       await axios.post("/api/auth/register",{
@@ -212,15 +215,18 @@ export default {
       // })
         .then(async response => {
           if (response.status==201||response.status==200) {
-            alert("Registered Successfully !");
+            this.message = "Registered Successfully!";
               this.$router.push("/login");
           } else {
+            this.message = "There is a problem please try again";
             response.json().then(json => {
                 alert(response.status + ": " + json.message);
             });
           }
         })
-        .catch(err => console.error(err));
+        .catch(err => {
+           this.message = "There is a problem please try again";
+          console.error(err)});
     }
   }
 };
