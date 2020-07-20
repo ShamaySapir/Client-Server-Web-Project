@@ -14,24 +14,19 @@ import axios from "axios";
 export default {
   name: "FamilyRecipesPage",
   async mounted() {
-    try {
-      const response = await axios.get("api/user/family");
-      console.log(response);
-      /* const recipes = response.data.recipes.map((r) => {
-        return {
-          id: r.id,
-          title: r.title,
-          readyInMinutes: r.readyInMinutes,
-          image: r.image,
-          aggregateLikes: r.aggregateLikes
-        };
-      });*/
-
-      // insert to this.recipes
-    } catch (error) {
-      console.log(error);
-    }
-
+      await axios.get("api/user/family")
+        .then(responce => {
+          if(responce.status==200){
+            this.recipes=responce.data.data
+            this.title = this.recipes.length==0?
+            'Sorry you have no Family Recipes'
+            :'Your Family Recipes'
+          }
+          else{
+            this.title = "Sorry we could not get your Family Recipes );"
+          }
+          })
+          .catch (error => console.log(error));
   },
   data: function () {
     return {
