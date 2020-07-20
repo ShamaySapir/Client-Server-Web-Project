@@ -1,9 +1,7 @@
 <template>
   <div class="my-10">
   <br><h1>
-    {{recipes.length==0?
-    'Sorry you have no Favorite Recipes'
-    :'Your Favorite Recipes'}}
+    {{title}}
   </h1>
     <PreviewList :recipes="recipes" />
   </div>
@@ -23,6 +21,9 @@ export default {
         this.$router.push("/home"); 
       }
       this.recipes = response.data.data;
+      this.title = this.recipes.length==0?
+    'Sorry you have no Favorite Recipes'
+    :'Your Favorite Recipes'
     } catch (error) {
       console.log(error);
     }
@@ -30,6 +31,7 @@ export default {
   data: function () {
     return {
       recipes: [],
+      title: "Loading Recipes..."
     };
   },
   components: {
