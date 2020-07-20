@@ -2,11 +2,6 @@
   <div class="my-10">
     <SearchBar 
       :searchResults="lastSearchResults"
-      :query="lastSearchParams.query"
-      :number="lastSearchParams.number"
-      :cuisine="lastSearchParams.cuisine"
-      :diet="lastSearchParams.diet"
-      :intolerance="lastSearchParams.intolerance"
     />
     <!--<PreviewList :recipes="SearchBar.searchResults"/>-->
   </div>
@@ -20,7 +15,8 @@ import axios from 'axios'
 export default {
   name: 'SearchPage',
    mounted(){
-     if(store.isLoggedIn)
+    if(store.isLoggedIn)
+    //  if(store.isLoggedIn==-7)
        this.lastSearch()
 //     if(!(this.$root.userToken == "" || this.$root.userToken == null)){// logged in so send him to home page
 // this.$router.push("/home");    }
@@ -28,7 +24,7 @@ export default {
 data: ()=>({
   lastSearchParams:{
     query: "",
-    number: 5,
+    number: "5",
     cuisine: "",
     diet: "",
     intolerance: "",
@@ -45,8 +41,10 @@ data: ()=>({
       .then(async ()=> {
         const params = this.lastSearchParams
         await axios.post("api/recipes/search",params)
-          .then(results => 
-            this.lastSearchResults = results.data)
+          .then(results => {
+            // results.data.forEach(recipe => this.lastSearchResults.push(recipe))
+            this.lastSearchResults = results.data
+            console.log(this.lastSearchResults)})
         }).catch(error => {
         console.log(error)
         this.lastSearchResults=[]})

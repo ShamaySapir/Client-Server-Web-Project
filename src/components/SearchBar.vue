@@ -48,6 +48,8 @@
               :value="`${n * 5}`"
             ></v-radio>
           </v-radio-group>
+                <v-btn v-on:click="popluar">Most popular first</v-btn>
+      <v-btn v-on:click="time">Least preparation time first</v-btn>
           <v-btn color="success" block @click="search">
             Search
             <v-icon dark right>search</v-icon>
@@ -56,10 +58,6 @@
       </div>
     </v-card>
     <!-- Should add v-if="searchResults.length != 0" To the div -->
-    <div>
-      <v-btn v-on:click="popluar">Popular first</v-btn>
-      <v-btn v-on:click="time">Least Preparation time first</v-btn>
-    </div>
     <PreviewList
       :title="searchResults.length != 0 ? previewTitle : ''"
       :recipes="searchResults"
@@ -76,11 +74,6 @@ export default {
   },
   props:{
     searchResults:[],
-    query: String,
-    number: Number,
-    cuisine: String,
-    diet: String,
-    intolerance: String,
   },
   methods:{
     async search(){
@@ -93,7 +86,6 @@ export default {
       }).then(res => this.searchResults = res.data)
       console.log(this.searchResults)
     },
-  computed: {
     time: function () {
       // eslint-disable-next-line require-jsdoc
       function compare(a, b) {
@@ -107,15 +99,23 @@ export default {
     popluar: function () {
       // eslint-disable-next-line require-jsdoc
       function compare(a, b) {
-        if (a.aggregateLikes < b.aggregateLikes) return -1;
-        if (a.aggregateLikes > b.aggregateLikes) return 1;
+        if (a.likes < b.likes) return -1;
+        if (a.likes > b.likes) return 1;
         return 0;
       }
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       return this.searchResults.sort(compare);
     },
   },
+  computed: {
+    
+  },
   data: () => ({
+    query: "",
+    number: 5,
+    cuisine: "",
+    diet: "",
+    intolerance: "",
     previewTitle: "Results:",
     cusines:[
       {value: "", text: ""},
