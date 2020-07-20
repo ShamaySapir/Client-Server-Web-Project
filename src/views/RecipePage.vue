@@ -27,7 +27,7 @@ export default {
     const reqStringFromSpooncular = "api/recipes/recipe/"+id;
     await axios.get(reqStringFromDB).
     then(res=>{
-      if(res.status!=200){
+      if(res.data==null){
         this.preview = {
           readyInMinutes : 0,
           image : "image",
@@ -74,7 +74,7 @@ export default {
     if(!isInDB){
       await axios.get(reqStringFromSpooncular).
       then(res=>{
-        if(res.status!=200){
+        if(res.data==null){
           this.preview = {
             readyInMinutes : 0,
             image : "image",
