@@ -2,6 +2,9 @@
   <v-card raised class="mx-auto my-auto" max-width="500">
     <div align="center" dark class="primary mb-10 py-3 white--text">
       <h1><v-icon large dark left>input</v-icon>Login</h1>
+      <div class="red--text">
+      {{message}}
+      </div>
     </div>
     <div align="center">
       <v-form ref="form" v-model="valid">
@@ -46,17 +49,11 @@ export default {
       username: "",
       password: "",
       passwordVisable: false,
+      message:""
     };
   },
   methods: {
-    async getRacdomRecipes(){
-      const response = await axios.get("api/user/family");
-    },
     async login() {
-      if (!this.valid) {
-        alert("There's a problem");
-        return;
-      }
       await axios
         .post("api/auth/login", {
           username: this.username,
@@ -71,16 +68,20 @@ export default {
               this.$router.go(-1);
             }
           } else {
+            this.message = "There is a problem please try again";
             if (response.status == 401) {
-              alert("The combination of username and password doesn't exist");
+              this.message = "The combination of username and password doesn't exist";
             } else {
+              this.message = "There is a problem please try again";
               response.json().then((json) => {
                 alert(response.status + ": " + json.message);
               });
             }
           }
         })
-        .catch(err => {console.error(err)});
+        .catch(err => {
+          this.message = "There is a problem please try again";
+          });
     },
   }
 };

@@ -1,5 +1,5 @@
 <template>
-  <v-app id="morbis">
+  <v-app id="ReciPyjamot">
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary">
       <v-toolbar-title style="width: 150px;" class="ml-0 pl-4">
         <span class="hidden-sm-and-down">ReciPyjamot</span>
@@ -107,14 +107,6 @@
         to="/register"
       >
         <v-icon left>assignment</v-icon>Register
-      </v-btn>
-      <v-btn icon large>
-        <v-avatar size="32px" item>
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-            alt="Morbis"
-          />
-        </v-avatar>
       </v-btn>
     </v-app-bar>
     <v-content>
