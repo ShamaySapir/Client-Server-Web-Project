@@ -16,10 +16,8 @@ import store, { setLoggedIn, setLoggedOut, setUserName } from "../views/store";
 
 Vue.use(Router);
 const protectedRoutes = [
-  "CreateRecipePage",
   "FamilyRecipesPage",
   "userRecipesPage",
-  "RecipePage",
   "FavoriteRecipesPage",
 ];
 const router = new Router({
@@ -110,7 +108,7 @@ router.beforeEach((to, _, next) => {
   } else {
     if (!sessionCookie) {
       setLoggedOut();
-      setUserName(Guest);
+      setUserName("Guest");
       next({ name: "Login Page" });
     }
     next();

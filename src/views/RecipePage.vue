@@ -1,115 +1,120 @@
 <template>
   <div class="my-10">
-  <h1>This is a recipe page</h1>
-    <Recipe :preview="preview" :ingredients="ingredients" :instructions="instructions" :servings="servings" :family="family"/>
+    <Recipe
+      :preview="preview"
+      :ingredients="ingredients"
+      :instructions="instructions"
+      :servings="servings"
+      :family="family"
+    />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Recipe from '@/components/Recipe.vue'
+import Recipe from "@/components/Recipe.vue";
 // var recipe = {"preview":{"id":223509,"image":"https://spoonacular.com/recipeImages/223509-556x370.jpg","title":"Sweet potato & goat's cheese ravioli","readyInMinutes":95,"likes":252,"vegan":true,"gluten_free":true,"viewed":{},"favorite":{}},"servings":4,"ingredients":[{"name":"sweet potatoes","value":2,"units":""},{"name":"pumpkin seeds","value":2,"units":"Tbsps"},{"name":"goat's cheese","value":125,"units":"g"},{"name":"cooking oil","value":1,"units":"serving"},{"name":"pasta","value":300,"units":"g"},{"name":"eggs","value":3,"units":"large"}],"instructions":["For the filling, bake, steam or microwave the potatoes, then roughly mash.","Mix with the pumpkin seeds and goats cheese.","For the pasta, place the flour and a pinch of salt in a food processor and crack in the eggs. Pulse until mixture forms sticky-looking crumbs. Turn the mixture out onto a lightly floured surface and bring together to form a firm dough. Knead for 5 mins until the dough feels smooth, wrap in cling film and chill for 30 mins. To make by hand, shape flour into a ring on a work surface, crack eggs into the middle, then gradually work the flour into eggs using your fingers.","Cut the pasta into quarters, then roll out each piece using a pasta machine. Dust with flour as you go and move it down a notch onto a thinner setting every second roll. Continue until you get to the penultimate setting. If you like your pasta very thin and delicate, you can go for the thinnest setting. If you dont have a machine, use a heavy rolling pin to roll the dough as thinly as possible.","Stamp out rounds using a ravioli cutter or a 6cm biscuit cutter  work quickly so the pasta doesnt dry out.","Lay the circles on a semolina-dusted surface and cover with cling film as you cut the rest.","Place a small tsp of filling in the centre of each round. Dampen the edges with water, then sandwich another round on top. Use your fingertips to seal the edges, trying to expel all the air as you go.","Lay the ravioli on a semolina-dusted tea towel to dry for a few mins.","Cook ravioli in a large pan of gently boiling salted water for 4-5 mins. Do not use a full rolling boil as it is likely to make ravioli split.","Drain, and serve with a little chilli oil, Parmesan and pumpkin seeds."]};
-import axios from 'axios'
+import axios from "axios";
 export default {
-  name: 'RecipePage',
-  data: () =>({
-    preview:{},
-    instructions:{},
-    ingredients:{},
-    servings:{},
-    family:{}
+  name: "RecipePage",
+  data: () => ({
+    preview: {},
+    instructions: {},
+    ingredients: {},
+    servings: {},
+    family: {},
   }),
-  async mounted(){
+  async mounted() {
     let isInDB = false;
     const url = new URL(document.URL);
-    const id = url.pathname.replace("/","");
-    const reqStringFromDB = "api/db/getRecipe/"+id;
-    const reqStringFromSpooncular = "api/recipes/recipe/"+id;
-    await axios.get(reqStringFromDB).
-    then(res=>{
-      if(res.data==null){
-        this.preview = {
-          readyInMinutes : 0,
-          image : "image",
-          viewed : false,
-          glutenFree : true,
-          id : 0,
-          vegan : false,
-          title : "NOT AVAILABLE",
-          favorite : false,
-          likes : 0
-        }
-        this.instructions = ["no availabe instructions"]
-        this.ingredients = ["no availabe ingredients"]
-        this.servings= 0
-        this.family= {who:"0",when:"0"}
-        return
-      }
-      else{
-        isInDB=true;
-        const preview = {
-          readyInMinutes : res.data.readyInMinutes,
-          image : res.data.image,
-          viewed : res.data.viewed,
-          glutenFree : res.data.glutenFree,
-          id : res.data.id,
-          vegan : res.data.vegan,
-          title : res.data.title,
-          favorite : res.data.favorite,
-          likes : res.data.likes
-        }
-        this.preview = preview;// TODO fix the preview format
-        this.instructions = res.data.instructions;
-        this.ingredients = res.data.ingredients;
-        this.servings = res.data.servings;
-        if(res.data.family){
-          this.family = res.data.family;
-        }else{
-          this.family={who:"0",when:"0"}
-        }
-        return;
-      }
-    }).
-    catch((err)=>console.log(err))
-    if(!isInDB){
-      await axios.get(reqStringFromSpooncular).
-      then(res=>{
-        if(res.data==null){
+    const id = url.pathname.replace("/", "");
+    const reqStringFromDB = "api/db/getRecipe/" + id;
+    const reqStringFromSpooncular = "api/recipes/recipe/" + id;
+    await axios
+      .get(reqStringFromDB)
+      .then((res) => {
+        if (res.data == null) {
           this.preview = {
-            readyInMinutes : 0,
-            image : "image",
-            viewed : false,
-            glutenFree : true,
-            id : 0,
-            vegan : false,
-            title : "NOT AVAILABLE",
-            favorite : false,
-            likes : 0
-          }
-          this.instructions = ["no availabe instructions"]
-          this.ingredients = ["no availabe ingredients"]
-          this.servings= 0
-          this.family= {}
-          return
-        }
-        else{
-          this.preview = res.data.preview;
+            readyInMinutes: 0,
+            image: "image",
+            viewed: false,
+            glutenFree: true,
+            id: 0,
+            vegan: false,
+            title: "NOT AVAILABLE",
+            favorite: false,
+            likes: 0,
+          };
+          this.instructions = ["no availabe instructions"];
+          this.ingredients = ["no availabe ingredients"];
+          this.servings = 0;
+          this.family = { who: "0", when: "0" };
+          return;
+        } else {
+          isInDB = true;
+          const preview = {
+            readyInMinutes: res.data.readyInMinutes,
+            image: res.data.image,
+            viewed: res.data.viewed,
+            glutenFree: res.data.glutenFree,
+            id: res.data.id,
+            vegan: res.data.vegan,
+            title: res.data.title,
+            favorite: res.data.favorite,
+            likes: res.data.likes,
+          };
+          this.preview = preview; // TODO fix the preview format
           this.instructions = res.data.instructions;
           this.ingredients = res.data.ingredients;
           this.servings = res.data.servings;
-          // try{
-          //   this.family = res.data.family;
-          // }catch(err)
-          // {
-          //   this.family={}
-          // }
+          if (res.data.family) {
+            this.family = res.data.family;
+          } else {
+            this.family = { who: "0", when: "0" };
+          }
+          return;
         }
-      }).
-      catch((err)=>console.log(err))
+      })
+      .catch((err) => console.log(err));
+    if (!isInDB) {
+      await axios
+        .get(reqStringFromSpooncular)
+        .then((res) => {
+          if (res.data == null) {
+            this.preview = {
+              readyInMinutes: 0,
+              image: "image",
+              viewed: false,
+              glutenFree: true,
+              id: 0,
+              vegan: false,
+              title: "NOT AVAILABLE",
+              favorite: false,
+              likes: 0,
+            };
+            this.instructions = ["no availabe instructions"];
+            this.ingredients = ["no availabe ingredients"];
+            this.servings = 0;
+            this.family = {};
+            return;
+          } else {
+            this.preview = res.data.preview;
+            this.instructions = res.data.instructions;
+            this.ingredients = res.data.ingredients;
+            this.servings = res.data.servings;
+            // try{
+            //   this.family = res.data.family;
+            // }catch(err)
+            // {
+            //   this.family={}
+            // }
+          }
+        })
+        .catch((err) => console.log(err));
     }
   },
   components: {
-    Recipe
+    Recipe,
   },
-}
+};
 </script>

@@ -22,30 +22,31 @@
         :src="recipe.image"
       ></v-img>
     </div>
-
-    <v-card-subtitle class="like">
-      {{ recipe.likes }}
-      <v-img
-        class="likeImg"
-        height="30px"
-        width="30px"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRffPW6bFotdy6auFDV2E9TWp6pn8N-1AE86w&usqp=CAU"
-      />
-      <v-img
-        v-if="recipe.vegan"
-        class="likeImg"
-        height="30px"
-        width="30px"
-        src="https://www.highspeedtraining.co.uk/hub/wp-content/uploads/2016/05/13_Vegetarian.jpg"
-      />
-      <v-img
-        v-if="recipe.glutenFree"
-        class="likeImg"
-        height="30px"
-        width="30px"
-        src="https://www.newhope.com/sites/newhope360.com/files/styles/article_featured_retina/public/gluten-free-trends.jpg?itok=qUoz8a1A"
-      />
-    </v-card-subtitle>
+    <div class="text">
+      <v-card-subtitle class="like">
+        {{ recipe.likes }}
+        <v-img
+          class="likeImg"
+          height="30px"
+          width="30px"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRffPW6bFotdy6auFDV2E9TWp6pn8N-1AE86w&usqp=CAU"
+        />
+        <v-img
+          v-if="recipe.vegan"
+          class="likeImg"
+          height="30px"
+          width="30px"
+          src="https://www.highspeedtraining.co.uk/hub/wp-content/uploads/2016/05/13_Vegetarian.jpg"
+        />
+        <v-img
+          v-if="recipe.glutenFree"
+          class="likeImg"
+          height="30px"
+          width="30px"
+          src="https://www.newhope.com/sites/newhope360.com/files/styles/article_featured_retina/public/gluten-free-trends.jpg?itok=qUoz8a1A"
+        />
+      </v-card-subtitle>
+    </div>
 
     <v-card-text class="text">
       <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
