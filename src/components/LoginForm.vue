@@ -49,7 +49,7 @@ export default {
     };
   },
   methods: {
-    async getRacdomRecipes(){
+    async getRacdomRecipes() {
       const response = await axios.get("api/user/family");
       console.log(response);
     },
@@ -68,6 +68,13 @@ export default {
             setLoggedIn();
             this.$cookies.set("username", this.username);
             setUserName(this.username);
+            const prevRoute = document.referrer;
+            if (
+              prevRoute.split("/")[prevRoute.split("/").length - 1] ===
+              "register"
+            ) {
+              this.$router.push("/home");
+            }
             if (this.$router.currentRoute.path != "/home") {
               this.$router.go(-1);
             }
@@ -81,9 +88,11 @@ export default {
             }
           }
         })
-        .catch(err => {console.error(err)});
+        .catch((err) => {
+          console.error(err);
+        });
     },
-  }
+  },
 };
 </script>
 

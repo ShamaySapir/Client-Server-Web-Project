@@ -49,8 +49,20 @@
             ></v-radio>
           </v-radio-group>
           <div v-if="searchResults.length != 0">
-                <v-btn v-on:click="popluar">Most popular first</v-btn>
-      <v-btn v-on:click="time">Least preparation time first</v-btn>
+            <v-btn
+              v-on:click="popluar"
+              color="black"
+              class="white--text"
+              style="margin: 10px;"
+              >Most popular first</v-btn
+            >
+            <v-btn
+              v-on:click="time"
+              color="black"
+              class="white--text"
+              style="margin: 10px;"
+              >Least preparation time first</v-btn
+            >
           </div>
           <v-btn color="success" block @click="search">
             Search
@@ -60,10 +72,7 @@
       </div>
     </v-card>
     <!-- Should add v-if="searchResults.length != 0" To the div -->
-    <PreviewList
-      :title="searchResults.length != 0 ? previewTitle : ''"
-      :recipes="searchResults"
-    />
+    <PreviewList :recipes="searchResults" />
   </div>
 </template>
 <script>
@@ -74,25 +83,27 @@ export default {
   components: {
     PreviewList,
   },
-  props:{
-    searchResults:[],
+  props: {
+    searchResults: [],
   },
-  methods:{
-    async search(){
-      await axios.post("api/recipes/search",{
-        query:this.query,
-        number:this.number,
-        cuisine:this.cuisine,
-        diet:this.diet,
-        intolerance:this.intolerance,
-      }).then(res => this.searchResults = res.data)
-      console.log(this.searchResults)
+  methods: {
+    async search() {
+      await axios
+        .post("api/recipes/search", {
+          query: this.query,
+          number: this.number,
+          cuisine: this.cuisine,
+          diet: this.diet,
+          intolerance: this.intolerance,
+        })
+        .then((res) => (this.searchResults = res.data));
+      console.log(this.searchResults);
     },
     time: function () {
       // eslint-disable-next-line require-jsdoc
       function compare(a, b) {
-        if (a.readyInMinutes < b.readyInMinutes) return 1;
-        if (a.readyInMinutes > b.readyInMinutes) return -1;
+        if (a.readyInMinutes < b.readyInMinutes) return -1;
+        if (a.readyInMinutes > b.readyInMinutes) return 1;
         return 0;
       }
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
@@ -101,7 +112,7 @@ export default {
     popluar: function () {
       // eslint-disable-next-line require-jsdoc
       function compare(a, b) {
-        if (a.likes < b.likes) return -1;
+        if (a.likes < b.likes) return 1;
         if (a.likes > b.likes) return 1;
         return 0;
       }
@@ -109,9 +120,7 @@ export default {
       return this.searchResults.sort(compare);
     },
   },
-  computed: {
-    
-  },
+  computed: {},
   data: () => ({
     query: "",
     number: 5,
@@ -119,34 +128,47 @@ export default {
     diet: "",
     intolerance: "",
     previewTitle: "Results:",
-    cusines:[
-      {value: "", text: ""},
-      {value: 'African', text: 'African'},
-      {value: 'American',text: 'American'},
-      {value: 'British',text: 'British'},
-      {value: 'Cajun',text: 'Cajun'},
-      {value: 'Caribbean',text: 'Caribbean'},
-      {value: 'Chinese',text: 'Chinese'},
-      {value: 'Eastern European',text: 'Eastern European'},
-      {value: 'European',text: 'European'},
-      {value: 'French', text: 'French'},
-      {value: 'German',text: 'German'},
-      {value: 'Greek',text: 'Greek'},
-      {value: 'Indian',text: 'Indian'},
-      {value: 'Irish',text: 'Irish'},
-      {value: 'Italian',text: 'Italian'},
-      {value: 'Japanese',text: 'Japanese'},
-      {value: 'Jewish',text: 'Jewish'},
-      {value: 'Korean',text: 'Korean'},
-      {value: 'Latin American',text: 'Latin American'},
-      {value: 'Mediterranean',text: 'Mediterranean'},
-      {value: 'Mexican',text: 'Mexican'},
-      {value: 'Middle Eastern',text: 'Middle Eastern'},
-      {value: 'Nordic',text: 'Nordic'},
-      {value: 'Southern',text: 'Southern'},
-      {value: 'Spanish',text: 'Spanish'},
-      {value: 'Thai', text: 'Thai'},
-      {value: 'Vietnamese',text: 'Vietnamese'},
+    cusines: [
+      { value: "", text: "" },
+      { value: "African", text: "African" },
+      { value: "American", text: "American" },
+      { value: "British", text: "British" },
+      { value: "Cajun", text: "Cajun" },
+      { value: "Caribbean", text: "Caribbean" },
+      { value: "Chinese", text: "Chinese" },
+      { value: "Eastern European", text: "Eastern European" },
+      { value: "European", text: "European" },
+      { value: "French", text: "French" },
+      { value: "German", text: "German" },
+      { value: "Greek", text: "Greek" },
+      { value: "Indian", text: "Indian" },
+      { value: "Irish", text: "Irish" },
+      { value: "Italian", text: "Italian" },
+      { value: "Japanese", text: "Japanese" },
+      { value: "Jewish", text: "Jewish" },
+      { value: "Korean", text: "Korean" },
+      { value: "Latin American", text: "Latin American" },
+      { value: "Mediterranean", text: "Mediterranean" },
+      { value: "Mexican", text: "Mexican" },
+      { value: "Middle Eastern", text: "Middle Eastern" },
+      { value: "Nordic", text: "Nordic" },
+      { value: "Southern", text: "Southern" },
+      { value: "Spanish", text: "Spanish" },
+      { value: "Thai", text: "Thai" },
+      { value: "Vietnamese", text: "Vietnamese" },
+    ],
+    Diets: [
+      { value: "", text: "" },
+      { value: "Gluten Free", text: "Gluten Free" },
+      { value: "Ketogenic", text: "Ketogenic" },
+      { value: "Vegetarian", text: "Vegetarian" },
+      { value: "Lacto-Vegetarian", text: "Lacto-Vegetarian" },
+      { value: "Ovo-Vegetarian", text: "Ovo-Vegetarian" },
+      { value: "Vegan", text: "Vegan" },
+      { value: "Pescetarian", text: "Pescetarian" },
+      { value: "Paleo", text: "Paleo" },
+      { value: "Primal", text: "Primal" },
+      { value: "Whole30", text: "Whole30" },
     ],
     Intolerances: [
       { value: "", text: "" },

@@ -3,6 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 import VueCookies from "vue-cookies";
+import VueRouterReferer from "@tozd/vue-router-referer";
+
+Vue.use(VueRouterReferer);
 
 Vue.config.productionTip = false;
 Vue.use(VueCookies);
