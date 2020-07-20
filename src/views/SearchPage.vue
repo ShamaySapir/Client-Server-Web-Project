@@ -41,10 +41,14 @@ export default {
         })
         .then(async () => {
           const params = this.lastSearchParams;
-          if (params.query) {
+          if (params && params.query) {
             await axios.post("api/recipes/search", params).then((results) => {
               // results.data.forEach(recipe => this.lastSearchResults.push(recipe))
-              this.lastSearchResults = results.data;
+              if (results.status == 200) {
+                this.lastSearchResults = results.data;
+              } else {
+                this.lastSearchResults = [];
+              }
             });
           }
         })
