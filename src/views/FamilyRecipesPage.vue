@@ -16,14 +16,18 @@ export default {
   async mounted() {
     try {
       const response = await axios.get("api/user/family");
-      if(response.status!=200){
-        console.log("rederecting")
-        this.$router.push("/home"); 
-      }
-      this.recipes = response.data.data;
-      this.title = this.recipes.length==0?
-    'Sorry you have no Family Recipes'
-    :'Your Family Recipes'
+      console.log(response);
+      /* const recipes = response.data.recipes.map((r) => {
+        return {
+          id: r.id,
+          title: r.title,
+          readyInMinutes: r.readyInMinutes,
+          image: r.image,
+          aggregateLikes: r.aggregateLikes
+        };
+      });*/
+
+      // insert to this.recipes
     } catch (error) {
       console.log(error);
     }

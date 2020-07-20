@@ -62,6 +62,14 @@ export default {
   components:{
     PreviewList,
   },
+  props:{
+    searchResults:[],
+    query: String,
+    number: Number,
+    cuisine: String,
+    diet: String,
+    intolerance: String,
+  },
   methods:{
     async search(){
       await axios.post("api/recipes/search",{
@@ -76,12 +84,6 @@ export default {
   },
   data: ()=>({
     previewTitle: "Results:",
-    query:"",
-    number:5,
-    cuisine:"",
-    diet:"",
-    intolerance:"",
-    searchResults:[],
     cusines:[
       {value: "", text: ""},
       {value: 'African', text: 'African'},

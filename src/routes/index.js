@@ -17,6 +17,14 @@ const validateLogin = (req, res, next) => {
 // });
 mainRouter.use("/recipes", recipesRouter);
 mainRouter.use("/auth", authRouter);
+<<<<<<< Updated upstream
+=======
+mainRouter.use(validateLogin)
+mainRouter.use("/user", userRouter); // TODO: assure cookie session for user first
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 mainRouter.use("/db", dbRouter);
 mainRouter.use(validateLogin);
 mainRouter.use("/user", userRouter); // TODO: assure cookie session for user first
