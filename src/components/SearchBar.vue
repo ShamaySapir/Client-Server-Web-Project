@@ -57,12 +57,22 @@
 <script>
 import axios from 'axios';
 import PreviewList from '@/components/PreviewList.vue'
+// import { response } from 'express';
 export default {
   name: "SearchBar",
   components:{
     PreviewList,
   },
   methods:{
+    async getLastSearch(){
+      await axios.get("api/user/search").then(res =>{
+          this.query = res.query
+          this.number = res.number
+          this.cuisine = res.cuisine
+          this.diet = res.diet
+          this.intolerance = res.intolerance
+        }).then(res2 =>{ if(this.query) this.search() })
+    },
     async search(){
       await axios.post("api/recipes/search",{
         query:this.query,
@@ -73,6 +83,9 @@ export default {
       }).then(res => this.searchResults = res.data)
       console.log(this.searchResults)
     },
+    async mounted(){
+      await this.getLastSearch()
+    }
   },
   data: ()=>({
     previewTitle: "Results:",
