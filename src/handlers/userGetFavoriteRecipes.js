@@ -42,7 +42,9 @@ const userGetFavoriteRecipesHandler = async (req, res, next) => {
     const favoriteRecipes = [];
     for await (const favorite of favorites) {
       const { data: recipe } = await utils.getRecipeInfoByID(favorite.recipeId);
-      favoriteRecipes.push(utils.getRecipePreviewByData(recipe));
+      const recipeFromSpooncnacular = utils.getRecipePreviewByData(recipe)
+      recipeFromSpooncnacular.favorite = favorite.favorite
+      favoriteRecipes.push(recipeFromSpooncnacular);
     }
     // return value
     favoriteRecipes.forEach(recipe=>{
