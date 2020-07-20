@@ -30,13 +30,79 @@
 import PreviewList from "../components/PreviewList.vue";
 import LoginForm from "../components/LoginForm.vue";
 import store from "./store";
-
+import axios from 'axios';
 export default {
   name: "HomePage",
-  async mounted() {},
+  async mounted() {
+     this.getRandomRecipes();
+     if(store.isLoggedIn)
+      this.getLatestRecipes(); 
+  },
   methods: {
-    getRandomRecipes() {
-      // TODO
+    async getRandomRecipes() {
+      await axios.get('api/recipes')
+        .then(response =>{
+          if(response.status==200){
+              this.randomRecipes = response.data;
+          }
+          else{
+            this.randomRecipes=[{
+              id: 223509,
+              image: "https://spoonacular.com/recipeImages/223509-556x370.jpg",
+              title: "Sweet potato & goat's cheese ravioli",
+              readyInMinutes: 95,
+              likes: 252,
+              vegan: true,
+              gluten_free: true,
+              viewed: false,
+              favorite: false,
+            }]
+          }
+        }).catch(err => (
+          this.randomRecipes=[{
+            id: 223509,
+            image: "https://spoonacular.com/recipeImages/223509-556x370.jpg",
+            title: "Sweet potato & goat's cheese ravioli",
+            readyInMinutes: 95,
+            likes: 252,
+            vegan: true,
+            gluten_free: true,
+            viewed: false,
+            favorite: false,
+          }]
+        ))
+    },
+    async getLatestRecipes() {
+      await axios.get('api/user/lastWatched').then(response =>{
+        if(response.status==200){
+            this.lastWatchedRecipes = response.data;
+        }
+        else{
+          this.lastWatchedRecipes={
+            id: 223509,
+            image: "https://spoonacular.com/recipeImages/223509-556x370.jpg",
+            title: "Sweet potato & goat's cheese ravioli",
+            readyInMinutes: 95,
+            likes: 252,
+            vegan: true,
+            gluten_free: true,
+            viewed: false,
+            favorite: false,
+          }
+        }
+      }).catch(err => (
+          this.lastWatchedRecipes=[{
+            id: 223509,
+            image: "https://spoonacular.com/recipeImages/223509-556x370.jpg",
+            title: "Sweet potato & goat's cheese ravioli",
+            readyInMinutes: 95,
+            likes: 252,
+            vegan: true,
+            gluten_free: true,
+            viewed: false,
+            favorite: false,
+          }]
+        ))
     },
   },
   data: function () {

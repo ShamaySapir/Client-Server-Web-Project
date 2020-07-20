@@ -1,7 +1,7 @@
 <template>
   <div class="my-10">
   <h1>This is a recipe page</h1>
-    <Recipe :preview="preview" :ingredients="ingredients" :instructions="instructions" :servings="servings"/>
+    <Recipe :preview="preview" :ingredients="ingredients" :instructions="instructions" :servings="servings" :family="family"/>
   </div>
 </template>
 
@@ -17,12 +17,15 @@ export default {
     instructions:{},
     ingredients:{},
     servings:{},
+    family:{}
   }),
   async mounted(){
+    let isInDB = false;
     const url = new URL(document.URL);
     const id = url.pathname.replace("/","");
-    const reqString = "api/recipes/recipe/"+id;
-    await axios.get(reqString).
+    const reqStringFromDB = "api/db/getRecipe/"+id;
+    const reqStringFromSpooncular = "api/recipes/recipe/"+id;
+    await axios.get(reqStringFromDB).
     then(res=>{
       if(res.status!=200){
         this.preview = {
@@ -38,17 +41,72 @@ export default {
         }
         this.instructions = ["no availabe instructions"]
         this.ingredients = ["no availabe ingredients"]
-        this.servings=0
+        this.servings= 0
+        this.family= {who:"0",when:"0"}
         return
       }
       else{
-        this.preview = res.data.preview;
+        isInDB=true;
+        const preview = {
+          readyInMinutes : res.data.readyInMinutes,
+          image : res.data.image,
+          viewed : res.data.viewed,
+          glutenFree : res.data.glutenFree,
+          id : res.data.id,
+          vegan : res.data.vegan,
+          title : res.data.title,
+          favorite : res.data.favorite,
+          likes : res.data.likes
+        }
+        this.preview = preview;// TODO fix the preview format
         this.instructions = res.data.instructions;
         this.ingredients = res.data.ingredients;
         this.servings = res.data.servings;
+        if(res.data.family){
+          this.family = res.data.family;
+        }else{
+          this.family={who:"0",when:"0"}
+        }
+        return;
       }
     }).
     catch((err)=>console.log(err))
+    if(!isInDB){
+      await axios.get(reqStringFromSpooncular).
+      then(res=>{
+        if(res.status!=200){
+          this.preview = {
+            readyInMinutes : 0,
+            image : "image",
+            viewed : false,
+            glutenFree : true,
+            id : 0,
+            vegan : false,
+            title : "NOT AVAILABLE",
+            favorite : false,
+            likes : 0
+          }
+          this.instructions = ["no availabe instructions"]
+          this.ingredients = ["no availabe ingredients"]
+          this.servings= 0
+          this.family= {}
+          return
+        }
+        else{
+          this.preview = res.data.preview;
+          this.instructions = res.data.instructions;
+          this.ingredients = res.data.ingredients;
+          this.servings = res.data.servings;
+          // try{
+          //   this.family = res.data.family;
+          // }catch(err)
+          // {
+          //   this.family={}
+          // }
+        }
+      }).
+      catch((err)=>console.log(err))
+    }
   },
   components: {
     Recipe

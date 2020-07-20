@@ -37,14 +37,18 @@
                   /></v-card-title>
                   <v-card-text>
                     {{ preview.likes }} users like this recipe!<br />
-                    Servings: {{ servings }}<br />
+                    Servings: {{ servings ? servings : "" }}<br />
                     Time to make: {{ preview.readyInMinutes }} minutes<br />
                     <b
                       >{{ preview.gluten_free ? "Gluten Free" : "" }}<br />
                       {{ preview.vegan ? "Vegan" : "" }}</b
                     ><br />
                   </v-card-text>
-                  <v-spacer></v-spacer>
+                  <v-card-title v-if="family & (family.who != '0')"
+                    >This is a Family Recipe!<br />
+                    {{ family.who }} used to make it
+                    {{ family.when }}</v-card-title
+                  >
                   <v-card-actions>
                     <v-btn icon @click="favorite()">
                       <v-icon v-if="this.preview.favorite" left
@@ -100,8 +104,11 @@ import axios from "axios";
 export default {
   name: "Recipe",
   data: () => ({}),
-  props: ["preview", "instructions", "servings", "ingredients"],
+  props: ["preview", "instructions", "servings", "ingredients", "family"],
   methods: {
+    async mounted() {
+      console.log("hi");
+    },
     async favorite() {
       try {
         let response = null;
