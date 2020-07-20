@@ -48,8 +48,10 @@
               :value="`${n * 5}`"
             ></v-radio>
           </v-radio-group>
+          <div v-if="searchResults.length != 0">
                 <v-btn v-on:click="popluar">Most popular first</v-btn>
       <v-btn v-on:click="time">Least preparation time first</v-btn>
+          </div>
           <v-btn color="success" block @click="search">
             Search
             <v-icon dark right>search</v-icon>
