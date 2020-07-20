@@ -105,7 +105,13 @@ export default {
           diet: this.diet,
           intolerance: this.intolerance,
         })
-        .then((res) => (this.searchResults = res.data));
+        .then((res) => {
+          if (res.status != 200) {
+            this.searchResults = [];
+          } else {
+            this.searchResults = res.data;
+          }
+        });
     },
     time: function () {
       // eslint-disable-next-line require-jsdoc
@@ -130,6 +136,7 @@ export default {
   },
   computed: {},
   data: () => ({
+    didSearch: false,
     imageSrc:
       "https://cdn.pixabay.com/photo/2015/11/03/09/09/magnifying-glass-1020142_960_720.jpg",
     query: "",

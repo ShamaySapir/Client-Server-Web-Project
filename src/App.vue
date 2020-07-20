@@ -117,6 +117,7 @@
 
 <script>
 import store, { setLoggedOut, setUserName } from "./views/store";
+import axios from "axios";
 
 export default {
   mounted() {
@@ -135,7 +136,8 @@ export default {
     };
   },
   methods: {
-    logout: function () {
+    logout: async function () {
+      await axios.post("api/user/deleteSearch");
       this.$cookies.remove("session");
       setLoggedOut();
       setUserName("Guest");

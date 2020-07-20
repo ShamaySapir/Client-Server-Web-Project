@@ -9,6 +9,7 @@ const userDeleteFavoriteRecipeHandler = require("./userDeleteFavoriteRecipe");
 const userLastWatchedRecipesHandler = require("./userLastWatchedRecipes");
 const userPersonalRecipesHandler = require("./userPersonalRecipes");
 const userViewedRecipeHandler = require("./userViewRecipeHandler");
+const userDeleteSearchHandler = require("./userDeleteSearchHandler");
 const authRegisterHandler = require("./authRegister");
 const authLoginHandler = require("./authLogin");
 const getRecipeFromDBHandler = require("./dbGetRecipe");
@@ -23,6 +24,7 @@ module.exports = {
     lastWatched: userLastWatchedRecipesHandler,
     personal: userPersonalRecipesHandler,
     viewed: userViewedRecipeHandler,
+    deleteSearch: userDeleteSearchHandler,
   },
   recipesHandlers: {
     recipesSearch: recipesSearchHandler,
