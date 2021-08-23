@@ -5,7 +5,12 @@
     "node": true,
     "es6": true
   },
-  "extends": ["prettier", "plugin:vue/essential", "eslint:recommended"],
+  "extends": [
+    "google",
+    "prettier",
+    "plugin:vue/essential",
+    "eslint:recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
