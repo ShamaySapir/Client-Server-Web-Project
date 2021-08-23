@@ -1,5 +1,5 @@
 <template>
-  <v-app id="Recipies">
+  <v-app id="Recipes">
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary">
       <v-toolbar-title style="width: 150px" class="ml-0 pl-4">
         <span class="hidden-sm-and-down">ReciPyjamot</span>
