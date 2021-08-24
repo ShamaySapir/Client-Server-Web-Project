@@ -8,13 +8,11 @@
     "build": "vue-cli-service build",
     "start": "nodemon ./index.js",
     "init:db": "node ./src/shared/initial/setInitialDB.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
     "travis": "npm run build"
   },
   "engineStrict": true,
   "engines": {
-    "node": "10.15"
+    "node": ">=12.0.0"
   },
   "keywords": [],
   "author": "",
@@ -44,13 +42,8 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-plugin-eslint": "~4.3.0",
     "@vue/cli-plugin-router": "~4.3.0",
     "@vue/cli-service": "~4.3.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.1.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-config-prettier": "^8.3.0",
     "material-design-icons-iconfont": "^5.0.1",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
